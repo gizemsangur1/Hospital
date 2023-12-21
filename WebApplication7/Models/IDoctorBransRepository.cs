@@ -1,8 +1,11 @@
-﻿namespace WebApplication7.Models
+﻿using System.Linq.Expressions;
+
+namespace WebApplication7.Models
 {
-    public class IDoctorBransRepository : IRepository<DoctorBrans>
+    public interface IDoctorBransRepository : IRepository<DoctorBrans>
     {
         void Guncelle(DoctorBrans doctorBransInterface);
+
         void Kaydet();
     }
 }

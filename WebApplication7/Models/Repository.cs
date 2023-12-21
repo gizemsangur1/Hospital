@@ -6,14 +6,14 @@ namespace WebApplication7.Models
 {
     public class Repository<T>:IRepository<T> where T : class
     {
-        private readonly ApplicationDbContext _uygulamaDbContext;
+        private readonly ApplicationDbContext _applicationDbContext;
         internal DbSet<T> dbSet;
 
         public Repository(ApplicationDbContext context)
         {
-            _uygulamaDbContext = context;
-            this.dbSet = _uygulamaDbContext.Set<T>();
-            _uygulamaDbContext.Doctors.Include(k => k.DoctorBrans).Include(k => k.DoctorBransId);
+            _applicationDbContext = context;
+            this.dbSet = _applicationDbContext.Set<T>();
+            _applicationDbContext.Doctors.Include(k => k.DoctorBrans).Include(k => k.DoctorBransId);
         }
         public void Ekle(T entitiy)
         {
