@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-
+﻿
 namespace WebApplication7.Models
 {
     public interface IDoctorBransRepository : IRepository<DoctorBrans>

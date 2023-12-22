@@ -2,7 +2,7 @@
 
 namespace WebApplication7.Models
 {
-    public class DoctorRepository : Repository<Doctor>
+    public class DoctorRepository : Repository<Doctor>, IDoctorRepository
     {
         private ApplicationDbContext _applicationDbContext;
         public DoctorRepository(ApplicationDbContext context) : base(context)
