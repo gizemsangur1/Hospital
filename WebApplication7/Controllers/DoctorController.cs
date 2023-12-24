@@ -9,24 +9,24 @@ namespace WebApplication7.Controllers
 {
     public class DoctorController : Controller
     {
-        private readonly IDoctorRepository _doktorRepository;
-        private readonly IDoctorBransRepository _doktorBransRepository;
+        private readonly IDoctorRepository _doctorRepository;
+        private readonly IDoctorBransRepository _doctorBransRepository;
         public readonly IWebHostEnvironment _webHostEnvironment;
         
 
-        public DoctorController(IDoctorRepository doktorRepository, IDoctorBransRepository doktorBransRepository, IWebHostEnvironment webHostEnvironment)
+        public DoctorController(IDoctorRepository doctorRepository, IDoctorBransRepository doctorBransRepository, IWebHostEnvironment webHostEnvironment)
         {
-            _doktorRepository = doktorRepository;
-            _doktorBransRepository = doktorBransRepository;
+            _doctorRepository = doctorRepository;
+            _doctorBransRepository = doctorBransRepository;
             _webHostEnvironment = webHostEnvironment;
         }
 
-        [Authorize(Roles = "Admin , Hasta")]
+        [Authorize(Roles = "Admin , Patient")]
         public IActionResult Index()
         {
 
 
-            List<Doctor> objDoktorList = _doktorRepository.GetAll(includeProps: "DoktorBrans").ToList();
+            List<Doctor> objDoktorList = _doctorRepository.GetAll(includeProps: "DoctorBrans").ToList();
 
             return View(objDoktorList);
         }
@@ -38,7 +38,7 @@ namespace WebApplication7.Controllers
         {
 
 
-            IEnumerable<SelectListItem> DoktorBransList = _doktorBransRepository.GetAll().
+            IEnumerable<SelectListItem> DoktorBransList = _doctorBransRepository.GetAll().
                 Select(
                 k => new SelectListItem
                 {
@@ -59,7 +59,7 @@ namespace WebApplication7.Controllers
 
 
 
-                Doctor? doktorDb = _doktorRepository.Get(u => u.Id == id);//Expression<Func<T, bool>> filtre kısmı
+                Doctor? doktorDb = _doctorRepository.Get(u => u.Id == id);//Expression<Func<T, bool>> filtre kısmı
 
                 if (doktorDb == null)
                 {
@@ -101,16 +101,16 @@ namespace WebApplication7.Controllers
 
                 if (doktor.Id == 0)
                 {
-                    _doktorRepository.Ekle(doktor);
+                    _doctorRepository.Ekle(doktor);
                     TempData["basarili"] = "Doktor kayıt ekleme işlemi başarılı!";
                 }
                 else
                 {
-                    _doktorRepository.Guncelle(doktor);
+                    _doctorRepository.Guncelle(doktor);
                     TempData["basarili"] ="Doktor kayıt güncelleme işlemi başarılı!";
                 }
 
-                _doktorRepository.Kaydet();//bunu yapmazsan db'ye bilgiler eklenmez.
+                _doctorRepository.Kaydet();//bunu yapmazsan db'ye bilgiler eklenmez.
 
 
 
@@ -137,7 +137,7 @@ namespace WebApplication7.Controllers
 
 
 
-            Doctor? doktorDb = _doktorRepository.Get(u => u.Id == id);//Expression<Func<T, bool>> filtre kısmı
+            Doctor? doktorDb = _doctorRepository.Get(u => u.Id == id);//Expression<Func<T, bool>> filtre kısmı
 
             if (doktorDb == null)
             {
@@ -158,7 +158,7 @@ namespace WebApplication7.Controllers
         {
 
 
-            Doctor? doktor = _doktorRepository.Get(u => u.Id == id);//Expression<Func<T, bool>> filtre kısmı
+            Doctor? doktor = _doctorRepository.Get(u => u.Id == id);//Expression<Func<T, bool>> filtre kısmı
 
             if (doktor == null)
             {
@@ -166,8 +166,8 @@ namespace WebApplication7.Controllers
             }
             else
             {
-                _doktorRepository.Sil(doktor);
-                _doktorRepository.Kaydet();
+                _doctorRepository.Sil(doktor);
+                _doctorRepository.Kaydet();
                 TempData["basarili"] = "Doktor kayıt silme işlemi başarılı!";
                 return RedirectToAction("Index", "Doctor");
             }

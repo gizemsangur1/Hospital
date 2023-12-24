@@ -1,0 +1,61 @@
+﻿@model Appointment
+
+@{
+    ViewData["Title"] = Model == null ? "Randevu Oluştur" : " Randevu Güncelle";
+}
+
+<form method="post" enctype="multipart/form-data">
+
+    <div class="row">
+        <div class="col-10">
+            <div class="border p-3 mt-5">
+
+                <div class="row pb-3">
+                    <h2 class="text-primary">@(Model == null ? "Rndevu oluştur" : "GÜncelle")</h2>
+                    <br>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="PatientId" class="p-0">hasta id</label>
+                    <input asp-for="PatientId" class="form-control" />
+                    <span asp-validation-for="PatientId" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="DoctorId" class="p-0">doktor adı</label>
+                    <select asp-for="DoctorId" asp-items="ViewBag.DoktorList" class="form-select"></select>
+                    <span asp-validation-for="DoctorId" class="text-danger"></span>
+                </div>
+
+
+                @if (Model != null)
+                {
+                    <button type="submit" class="btn btn-lg btn-primary" style="width:250px">güncelle</button>
+                }
+                else
+                {
+                    <button type="submit" class="btn btn-lg btn-primary" style="width:250px">yei randevu</button>
+                }
+
+
+                <a asp-controller="Randevu" asp-action="Index" class="btn btn-lg btn-primary" style="width:250px">
+                    listeye dön
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+
+
+</form>
+
+@*@section Scripts{
+    @{
+
+        <partial name="_ValidationScriptsPartial"/>
+
+    }
+     *@
+
+<!-- buradaki razor section kısmı, modelde verilen hata mesajının, front endde de sağlamasını yapmak içindir. -->

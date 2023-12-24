@@ -5,15 +5,15 @@ using WebApplication7.Utility;
 
 namespace WebApplication7.Controllers
 {
+    [Authorize(Roles = UserRoles.Role_Admin)]//bütün controller dosyasında auth istersen buraya,
+                                                 //spesifik actionlar için istersen aşağıda istediğin metodun başına bunu yazıyorsun 
+      
     public class DoctorBransController : Controller
     {
-        [Authorize(Roles = UserRoles.Role_Admin)]//bütün controller dosyasında auth istersen buraya,
-                                                 //spesifik actionlar için istersen aşağıda istediğin metodun başına bunu yazıyorsun 
-        public class DoktorBransController : Controller
-        {
+        
             private readonly IDoctorBransRepository _doctorBransRepository;
 
-            public DoktorBransController(IDoctorBransRepository context)
+            public DoctorBransController(IDoctorBransRepository context)
             {
                 _doctorBransRepository = context;
             }
@@ -162,10 +162,10 @@ namespace WebApplication7.Controllers
                     _doctorBransRepository.Sil(doktorBrans);
                     _doctorBransRepository.Kaydet();
                     TempData["basarili"] = "Doktor Branşı silme işlemi başarılı!";
-                    return RedirectToAction("Index", "DoktorBrans");
+                    return RedirectToAction("Index", "DoctorBrans");
                 }
             }
-        }
+        
     }
 }
 

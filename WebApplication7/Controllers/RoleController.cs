@@ -16,8 +16,6 @@ public class RoleController : Controller
         _userManager = userManager;
         _roleManager = roleManager;
     }
-
-    // Bu eylem kullanıcıyı "Admin" rolüne atar
     public async Task<IActionResult> AssignAdminRole(string userId)
     {
         var user = await _userManager.FindByIdAsync(userId);
@@ -33,7 +31,20 @@ public class RoleController : Controller
 
             await _userManager.AddToRoleAsync(user, roleName);
 
-            return RedirectToAction("Index", "Home"); // İstenirse başka bir yere yönlendirilebilir.
+            // Check if the user is in the "Admin" role after assignment
+            var isInAdminRole = await _userManager.IsInRoleAsync(user, roleName);
+            if (isInAdminRole)
+            {
+                // Log or debug statement
+                Console.WriteLine($"User {user.UserName} successfully assigned to {roleName} role.");
+            }
+            else
+            {
+                // Log or debug statement
+                Console.WriteLine($"Failed to assign {roleName} role to user {user.UserName}.");
+            }
+
+            return RedirectToAction("Index", "Home"); // Redirect to the desired location.
         }
 
         return NotFound();

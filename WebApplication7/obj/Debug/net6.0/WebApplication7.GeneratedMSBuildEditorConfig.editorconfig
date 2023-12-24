@@ -44,8 +44,48 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/gizem/source/repos/WebApplication7/WebApplication7/Views/Appointment/EkleGuncelle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwb2ludG1lbnRcRWtsZUd1bmNlbGxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gizem/source/repos/WebApplication7/WebApplication7/Views/Appointment/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwb2ludG1lbnRcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gizem/source/repos/WebApplication7/WebApplication7/Views/Appointment/RandevuAl.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwb2ludG1lbnRcUmFuZGV2dUFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gizem/source/repos/WebApplication7/WebApplication7/Views/Appointment/Sil.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwb2ludG1lbnRcU2lsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gizem/source/repos/WebApplication7/WebApplication7/Views/DoctorBrans/Ekle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yQnJhbnNcRWtsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gizem/source/repos/WebApplication7/WebApplication7/Views/DoctorBrans/Guncelle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yQnJhbnNcR3VuY2VsbGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gizem/source/repos/WebApplication7/WebApplication7/Views/DoctorBrans/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yQnJhbnNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gizem/source/repos/WebApplication7/WebApplication7/Views/DoctorBrans/Sil.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yQnJhbnNcU2lsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gizem/source/repos/WebApplication7/WebApplication7/Views/Doctor/EkleGuncelle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yXEVrbGVHdW5jZWxsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/gizem/source/repos/WebApplication7/WebApplication7/Views/Doctor/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gizem/source/repos/WebApplication7/WebApplication7/Views/Doctor/Sil.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yXFNpbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/gizem/source/repos/WebApplication7/WebApplication7/Views/Home/Index.cshtml]

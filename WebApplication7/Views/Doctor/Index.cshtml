@@ -1,4 +1,5 @@
-﻿@using WebApplication7.Utility;
+﻿
+@using WebApplication7.Utility;
 @model List<Doctor>
 
 @{
@@ -25,7 +26,7 @@
 <div class="container">
     <div class="row pt-3 pb-4">
         <div>
-            <h1 class="text-primary">Doktorlar</h1>
+            <h1 class="text-primary"> Doctors</h1>
         </div>
     </div>
 
@@ -37,7 +38,7 @@
             <tr>
 
                 <th class="text-primary">
-                   Doktorlar
+                   Doctors
                 </th>
 
                 @if (User.IsInRole(UserRoles.Role_Admin))
@@ -47,35 +48,35 @@
                     </th>
                 }
                 <th class="text-primary">
-                    Doktor Adı
+                 doktor adi
                 </th>
 
                 <th class="text-primary">
-                   Poliklinik
+                  poliklinik
                 </th>
 
                 <th class="text-primary">
-                    Çalışma zamanları
+                   calisma gun ve saatleri
                 </th>
 
                 <th class="text-primary">
-                    Branşı
+                   bransi
                 </th>
                 @if (User.IsInRole(UserRoles.Role_Patient))
                 {
                     <th class="text-primary">
-                       Randevu al
+                        randevu al
                     </th>
                 }
 
                 @if (User.IsInRole(UserRoles.Role_Admin))
                 {
                     <th style="color:forestgreen">
-                        Güncelle
+                       guncelle
                     </th>
 
                     <th class="text-danger">
-                       Sil
+                       sil
                     </th>
                 }
 
@@ -91,38 +92,41 @@
 
 
                 <tr>
+                    <td align="center" valign="middle">
+                        
+                    </td>
                     @if (User.IsInRole(UserRoles.Role_Admin))
                     {
                         <td>@doktor.Id</td>
                     }
                     <td align="center" valign="middle">@doktor.DoctorName</td>
-                    <td align="center" valign="middle">@doktor.DoctorBrans</td>
+                    <td align="center" valign="middle">@doktor.Polyclinic</td>
                     <td align="center" valign="middle">
-
+                
                             @doktor.WorkingTimes
+                      
 
-                                              
                     </td>
                     <td align="center" valign="middle">
-                        
-                            @doktor.DoctorBrans
+                    
+                            @doktor.DoctorBrans?.Ad
+                     
 
-                       
-                        </td>
+                    </td>
                     @if (User.IsInRole(UserRoles.Role_Patient))
                     {
                         <td align="center" valign="middle">
-                            <a asp-controller="Randevu" asp-action="RandevuAl" asp-route-id="@doktor.Id" type="button" class="btn btn-success btn-sm"> Randevu al</a>
+                            <a asp-controller="Appointment" asp-action="RandevuAl" asp-route-id="@doktor.Id" type="button" class="btn btn-success btn-sm"> randevu al</a>
                         </td>
                     }
 
                     @if (User.IsInRole(UserRoles.Role_Admin))
                     {
                         <td align="center" valign="middle">
-                            <a asp-controller="Doktor" asp-action="EkleGuncelle" asp-route-id="@doktor.Id" type="button" class="btn btn-success btn-sm">Güncelle</a>
+                            <a asp-controller="Doctor" asp-action="EkleGuncelle" asp-route-id="@doktor.Id" type="button" class="btn btn-success btn-sm">guncelle</a>
                         </td>
                         <td align="center" valign="middle">
-                            <a asp-controller="Doktor" asp-action="Sil" asp-route-id="@doktor.Id" type="button" class="btn btn-danger btn-sm"> Sil</a>
+                            <a asp-controller="Doctor" asp-action="Sil" asp-route-id="@doktor.Id" type="button" class="btn btn-danger btn-sm"> sil</a>
                         </td>
                     }
 
@@ -136,10 +140,10 @@
     {
         <div class="row pt-3 pb-2">
             <div>
-                <a asp-controller="Doktor" asp-action="EkleGuncelle" class="btn btn-lg btn-primary" type="button">Doktor Ekle</a>
+                <a asp-controller="Doctor" asp-action="EkleGuncelle" class="btn btn-lg btn-primary" type="button">doktor ekle</a>
             </div>
         </div>
-     }
+    }
 
 
 
