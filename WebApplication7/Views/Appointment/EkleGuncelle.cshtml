@@ -16,9 +16,9 @@
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="PatientId" class="p-0">hasta id</label>
-                    <input asp-for="PatientId" class="form-control" />
-                    <span asp-validation-for="PatientId" class="text-danger"></span>
+                    <label asp-for="PatientName" class="p-0">Hasta Adı</label>
+                    <input asp-for="PatientName" class="form-control" readonly value="@User.Identity.Name" />
+                    <span asp-validation-for="PatientName" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">

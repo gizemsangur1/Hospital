@@ -1,34 +1,27 @@
 ﻿@model Doctor
 
 @{
-    ViewData["Title"] = Model == null ? "Doktor Ekle" : " Doktor Güncelle";
+    ViewData["Title"] = Model == null ? "Doktor Ekle" : "Doktor Güncelle";
 }
 
 <form method="post" enctype="multipart/form-data">
-    <!--
-        eğer modeldeki metodun adı Id yerine bambaşka bir şey olsaydı, bu satırı yazmayınca program hata verirdi.(şu an örnek olsun diye yazıldı)
-        Çünkü buradaki "Id" ismi asp için özel bir isim ve bu ismi koyduğun an bunun databasedeki "id" kavramına eşdeğer olduğunu sistem otomatik olarak algılıyor.
-    -->
-
     <div class="row">
-
         <div class="col-10">
             <div class="border p-3 mt-5">
-
                 <div class="row pb-3">
-                    <h2 class="text-primary">@(Model == null ? "Doktor Ekle" :"Doktor Guncelle")</h2>
+                    <h2 class="text-primary">@(Model == null ? "Doktor Ekle" : "Doktor Güncelle")</h2>
                     <br>
                 </div>
 
                 <div class="mb-3">
                     <label asp-for="DoctorName" class="p-0">Doktor</label>
-                                    <input asp-for="DoctorName" class="form-control" />
-                                    <span asp-validation-for="DoctorName" class="text-danger"></span>
+                    <input asp-for="DoctorName" class="form-control" />
+                    <span asp-validation-for="DoctorName" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
                     <label asp-for="DoctorBransId" class="p-0">Brans</label>
-                    <select asp-for="DoctorBransId" asp-items="ViewBag.DoctorBransList" class="form-select"></select>
+                    <select asp-for="DoctorBransId" asp-items="ViewBag.DoktorBransList" class="form-select"></select>
                     <span asp-validation-for="DoctorBransId" class="text-danger"></span>
                 </div>
 
@@ -39,45 +32,19 @@
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="WorkingTimes" class="p-0">Calisma gun ve saatleri</label>
+                    <label asp-for="WorkingTimes" class="p-0">Çalışma Gün ve Saatleri</label>
                     <input asp-for="WorkingTimes" class="form-control" />
                     <span asp-validation-for="WorkingTimes" class="text-danger"></span>
                 </div>
 
-
-
-                @if (Model != null)
-                {
-                    <button type="submit" class="btn btn-lg btn-primary" style="width:250px">Guncelle</button>
-                }
-                else
-                {
-                    <button type="submit" class="btn btn-lg btn-primary" style="width:250px">Ekle</button>
-                }
-
+                <button type="submit" class="btn btn-lg btn-primary" style="width:250px">@(Model == null ? "Ekle" : "Güncelle")</button>
 
                 <a asp-controller="Doctor" asp-action="Index" class="btn btn-lg btn-primary" style="width:250px">
-                  Listeye geri don
+                    Listeye geri dön
                 </a>
-
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
 </form>
 
-@*@section Scripts{
-    @{
-
-        <partial name="_ValidationScriptsPartial"/>
-
-    }
-     *@
-
-<!-- buradaki razor section kısmı, modelde verilen hata mesajının, front endde de sağlamasını yapmak içindir. -->
+}

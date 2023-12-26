@@ -115,32 +115,31 @@ namespace WebApplication7.Controllers
 
 
             [Authorize(Roles = UserRoles.Role_Patient)]
-            public IActionResult RandevuAl(int? id)
+        public IActionResult RandevuAl(int? id)
+        {
+            IEnumerable<SelectListItem> DoktorList = _doktorRepository.GetAll()
+                .Select(k => new SelectListItem
+                {
+                    Text = k.DoctorName,
+                    Value = k.Id.ToString(),
+                });
+
+            ViewBag.DoktorList = DoktorList;
+
+            // Giriş yapan kullanıcının adını al
+            var loggedInUserName = User.Identity.Name;
+
+            // Giriş yapan kullanıcının adını kullanarak PatientId'yi doldur
+            var appointment = new Appointment
             {
+                PatientName = loggedInUserName,
+            };
 
-                IEnumerable<SelectListItem> DoktorList = _doktorRepository.GetAll().
-                    Select(
-                    k => new SelectListItem
-                    {
-                        Text = k.DoctorName,
-                        Value = k.Id.ToString(),
-                    }
-                   );
-
-                ViewBag.DoktorList = DoktorList;
+            return View(appointment);
+        }
 
 
-                // if (id == null || id == 0)//ekle
-                //{
-
-                return View();
-
-                // }
-
-            }
-
-
-            [Authorize(Roles = UserRoles.Role_Patient)]
+        [Authorize(Roles = UserRoles.Role_Patient)]
             [HttpPost]//bunu yazmazsan yukarıda aynı isimle action olduğu için "catch" çalışır, sayfayı göremezsin.
             public IActionResult RandevuAl(Appointment randevu)
             {

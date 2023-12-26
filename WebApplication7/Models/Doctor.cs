@@ -18,17 +18,19 @@ namespace WebApplication7.Models
         [ValidateNever]
         public int? DoctorBransId { get; set; }
 
-
-
-        [ForeignKey(("DoktorBransId"))]
+        [ForeignKey("DoktorBransId")]
         [ValidateNever]
         public DoctorBrans? DoctorBrans { get; set; }
 
         [DisplayName("Poliklinik")]
         public string? Polyclinic { get; set; }
 
-        [Required]
-        [DisplayName("Çalışma Zamanları")]
-        public string WorkingTimes { get; set; }
+        // Çalışma gün ve saatlerini doğrudan doktora ekleyelim
+        [NotMapped] // Veritabanına eklenmeyecek
+        [DisplayName("Çalışma Gün ve Saatleri")]
+        public DateTime WorkingTimes { get; set; }
+
+        
+
     }
 }

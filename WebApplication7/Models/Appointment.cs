@@ -10,7 +10,7 @@ namespace WebApplication7.Models
         public int Id { get; set; }
 
         [Required]
-        public int PatientId { get; set; }
+        public string PatientName { get; set; } 
 
         [ValidateNever]
         public int? DoctorId { get; set; }

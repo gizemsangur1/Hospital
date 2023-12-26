@@ -1,4 +1,4 @@
-// Proje klasöründeki Startup.cs
+// Proje klasï¿½rï¿½ndeki Startup.cs
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication7.Utility;
 
@@ -11,9 +12,10 @@ using WebApplication7.Utility;
 namespace WebApplication7.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231224184453_updateworkingtime")]
+    partial class updateworkingtime
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -248,9 +250,8 @@ namespace WebApplication7.Migrations
                     b.Property<int?>("DoctorId")
                         .HasColumnType("int");
 
-                    b.Property<string>("PatientName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PatientId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -280,9 +281,6 @@ namespace WebApplication7.Migrations
                     b.Property<string>("Polyclinic")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("WorkingTimes")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("Id");
 
                     b.HasIndex("DoktorBransId");
@@ -306,6 +304,32 @@ namespace WebApplication7.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DoctorBranslari");
+                });
+
+            modelBuilder.Entity("WebApplication7.Models.WorkingTime", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Day")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Time")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.ToTable("WorkingTime");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -375,6 +399,22 @@ namespace WebApplication7.Migrations
                         .HasForeignKey("DoktorBransId");
 
                     b.Navigation("DoctorBrans");
+                });
+
+            modelBuilder.Entity("WebApplication7.Models.WorkingTime", b =>
+                {
+                    b.HasOne("WebApplication7.Models.Doctor", "Doctor")
+                        .WithMany("WorkingTimes")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+                });
+
+            modelBuilder.Entity("WebApplication7.Models.Doctor", b =>
+                {
+                    b.Navigation("WorkingTimes");
                 });
 #pragma warning restore 612, 618
         }
