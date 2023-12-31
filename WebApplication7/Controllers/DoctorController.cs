@@ -21,14 +21,21 @@ namespace WebApplication7.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        [Authorize(Roles = "Admin , Patient")]
+        [Authorize(Roles = "Admin, Patient")]
         public IActionResult Index()
         {
-
-
             List<Doctor> objDoktorList = _doctorRepository.GetAll(includeProps: "DoctorBrans").ToList();
-
             return View(objDoktorList);
+        }
+
+        [HttpGet]
+        public IActionResult GetDoctorsBySpecialty(string brans)
+        {
+            var doctors = _doctorRepository.GetAll()
+                .Where(d => d.DoctorBrans.Id.ToString() == brans)
+                .Select(d => new { value = d.Id, text = d.DoctorName });
+
+            return Json(doctors);
         }
 
 
@@ -87,7 +94,7 @@ namespace WebApplication7.Controllers
 
                 string wwwRootPath = _webHostEnvironment.WebRootPath;
                 string doktorPath = Path.Combine(wwwRootPath, @"img");
-
+                doktor.WorkingTimes = DateTime.SpecifyKind(doktor.WorkingTimes, DateTimeKind.Local);
                 if (file != null)
                 {
                     using (var fileStream = new FileStream(Path.Combine(doktorPath, file.FileName), FileMode.Create))
@@ -110,7 +117,7 @@ namespace WebApplication7.Controllers
                     TempData["basarili"] ="Doktor kayıt güncelleme işlemi başarılı!";
                 }
 
-                _doctorRepository.Kaydet();//bunu yapmazsan db'ye bilgiler eklenmez.
+                _doctorRepository.Kaydet();
 
 
 

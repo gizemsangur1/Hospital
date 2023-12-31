@@ -41,7 +41,7 @@ namespace WebApplication7.Controllers
                     Select(
                     k => new SelectListItem
                     {
-                        Text = k.DoctorName,
+                        Text = k.DoctorName+k.WorkingTimes,
                         Value = k.Id.ToString(),
                     }
                    );
@@ -114,8 +114,8 @@ namespace WebApplication7.Controllers
 
 
 
-            [Authorize(Roles = UserRoles.Role_Patient)]
-        public IActionResult RandevuAl(int? id)
+        [Authorize(Roles = UserRoles.Role_Patient)]
+        public IActionResult RandevuAl()
         {
             IEnumerable<SelectListItem> DoktorList = _doktorRepository.GetAll()
                 .Select(k => new SelectListItem
@@ -140,41 +140,29 @@ namespace WebApplication7.Controllers
 
 
         [Authorize(Roles = UserRoles.Role_Patient)]
-            [HttpPost]//bunu yazmazsan yukarıda aynı isimle action olduğu için "catch" çalışır, sayfayı göremezsin.
-            public IActionResult RandevuAl(Appointment randevu)
+        [HttpPost]
+        public IActionResult RandevuAl(Appointment randevu)
+        {
+            if (ModelState.IsValid)
             {
-
-                if (ModelState.IsValid)
-                {
-
-                    randevu.Id = 0;
-
-
-                    _randevuRepository.Ekle(randevu);
-                    TempData["basarili1"] = "Yeni randevu alındı!";
-
-
-
-                    _randevuRepository.Kaydet();//bunu yapmazsan db'ye bilgiler eklenmez.
-
-
-
-                    return RedirectToAction("Index", "Doctor");
-                }
-                else
-                {
-                    return View();
-                }
-
-
+                randevu.Id = 0;
+                _randevuRepository.Ekle(randevu);
+                TempData["basarili1"] = "Yeni randevu alındı!";
+                _randevuRepository.Kaydet();
+                return RedirectToAction("Index", "Doctor");
             }
+            else
+            {
+                return View();
+            }
+        }
 
 
 
 
 
 
-            [Authorize(Roles = UserRoles.Role_Admin)]
+        [Authorize(Roles = UserRoles.Role_Admin)]
             public IActionResult Sil(int? id)
             {
 

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication7.Utility;
 
@@ -11,9 +12,10 @@ using WebApplication7.Utility;
 namespace WebApplication7.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231227114842_appointmentchange")]
+    partial class appointmentchange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -277,6 +279,9 @@ namespace WebApplication7.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("DoktorBransId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Polyclinic")
                         .HasColumnType("nvarchar(max)");
 
@@ -285,7 +290,7 @@ namespace WebApplication7.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DoctorBransId");
+                    b.HasIndex("DoktorBransId");
 
                     b.ToTable("Doctors");
                 });
@@ -372,7 +377,7 @@ namespace WebApplication7.Migrations
                 {
                     b.HasOne("WebApplication7.Models.DoctorBrans", "DoctorBrans")
                         .WithMany()
-                        .HasForeignKey("DoctorBransId");
+                        .HasForeignKey("DoktorBransId");
 
                     b.Navigation("DoctorBrans");
                 });

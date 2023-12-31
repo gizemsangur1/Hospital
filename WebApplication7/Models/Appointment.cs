@@ -15,6 +15,10 @@ namespace WebApplication7.Models
         [ValidateNever]
         public int? DoctorId { get; set; }
 
+
+        [ValidateNever]
+        public int? WorkingTimes { get; set; }
+
         [ForeignKey(nameof(DoctorId))]
         [ValidateNever]
         public Doctor? Doctor { get; set; }

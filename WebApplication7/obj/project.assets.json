@@ -596,6 +596,9 @@
           }
         }
       },
+      "jQuery-datetimepicker/2.4.5": {
+        "type": "package"
+      },
       "MessagePack/2.1.152": {
         "type": "package",
         "dependencies": {
@@ -4825,6 +4828,19 @@
         "lib/netstandard1.0/zh-Hant/Humanizer.resources.dll",
         "lib/netstandard2.0/zh-Hant/Humanizer.resources.dll",
         "logo.png"
+      ]
+    },
+    "jQuery-datetimepicker/2.4.5": {
+      "sha512": "+ZwEXXASCpGHu6u1xPYyfXi0mSun/DIYKfM82JiFv3/9G0ZbW4LmxOuCpmuA8Cp0iWaIOHXDNFQBJmhvxDqi8Q==",
+      "type": "package",
+      "path": "jquery-datetimepicker/2.4.5",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/Content/jquery.datetimepicker.css",
+        "content/Scripts/jquery.datetimepicker.js",
+        "jquery-datetimepicker.2.4.5.nupkg.sha512",
+        "jquery-datetimepicker.nuspec"
       ]
     },
     "MessagePack/2.1.152": {
@@ -11457,7 +11473,8 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.25",
       "Microsoft.EntityFrameworkCore.Sqlite >= 6.0.23",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.25",
-      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 6.0.16"
+      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 6.0.16",
+      "jQuery-datetimepicker >= 2.4.5"
     ]
   },
   "packageFolders": {
@@ -11528,6 +11545,10 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
             "version": "[6.0.16, )"
+          },
+          "jQuery-datetimepicker": {
+            "target": "Package",
+            "version": "[2.4.5, )"
           }
         },
         "imports": [

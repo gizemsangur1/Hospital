@@ -33,7 +33,9 @@
                 <th class="text-primary">
                    Doktor adı
                 </th>
-
+                <th class="text-primary">
+                    Randevu zamanı
+                </th>
                 <th style="color:forestgreen">
                    Güncelle
                 </th>
@@ -63,7 +65,7 @@
 
                     <!-- <td>@*@randevu.DoktorId*@</td>-->
                     <td>@appointment.Doctor.DoctorName</td>
-
+                    <td>@appointment.Doctor.WorkingTimes</td>
 
                     <td>
                         <a asp-controller="Appointment" asp-action="EkleGuncelle" asp-route-id="@appointment.Id" type="button" class="btn btn-success btn-sm"> güncelle</a>

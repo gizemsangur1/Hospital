@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "/XmSQBwCEiiwSJgh2pwgPNQXGQnVn8ty2Pc0ty0vQtnmLFQLYNbzWculbjz5hVTBWQNk3oEpksdaAy+fi9SGvg==",
+  "dgSpecHash": "Fvi2v7GddxvO9Ni5+7s/fg1N87puXJwoNWKmnQxvyyIOCKxLcLLu8wdVmN4ARdy56GxR9MIcB48gFrXgdK9egw==",
   "success": true,
   "projectFilePath": "C:\\Users\\gizem\\source\\repos\\WebApplication7\\WebApplication7\\WebApplication7.csproj",
   "expectedPackageFiles": [
@@ -54,6 +54,7 @@
     "C:\\Users\\gizem\\.nuget\\packages\\humanizer.core.zh-cn\\2.14.1\\humanizer.core.zh-cn.2.14.1.nupkg.sha512",
     "C:\\Users\\gizem\\.nuget\\packages\\humanizer.core.zh-hans\\2.14.1\\humanizer.core.zh-hans.2.14.1.nupkg.sha512",
     "C:\\Users\\gizem\\.nuget\\packages\\humanizer.core.zh-hant\\2.14.1\\humanizer.core.zh-hant.2.14.1.nupkg.sha512",
+    "C:\\Users\\gizem\\.nuget\\packages\\jquery-datetimepicker\\2.4.5\\jquery-datetimepicker.2.4.5.nupkg.sha512",
     "C:\\Users\\gizem\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\gizem\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",
     "C:\\Users\\gizem\\.nuget\\packages\\messagepackanalyzer\\2.1.152\\messagepackanalyzer.2.1.152.nupkg.sha512",
