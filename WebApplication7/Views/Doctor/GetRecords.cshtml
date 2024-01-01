@@ -1,0 +1,61 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer;
+@using WebApplication7.Utility;
+@model List<Doctor>
+
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th class="text-primary">@Localizer["Doctors"]</th>
+            @if (User.IsInRole(UserRoles.Role_Admin))
+            {
+                <th class="text-primary">id</th>
+            }
+            <th class="text-primary">@Localizer["DoctorName"]</th>
+            <th class="text-primary">@Localizer["Polyclinic"]</th>
+            <th class="text-primary">@Localizer["Working Time"]</th>
+            <th class="text-primary">@Localizer["Specialty"]</th>
+            @if (User.IsInRole(UserRoles.Role_Patient))
+            {
+                <th class="text-primary">@Localizer["BookAppointment"]</th>
+            }
+            @if (User.IsInRole(UserRoles.Role_Admin))
+            {
+                <th style="color:forestgreen">@Localizer["Update"]</th>
+                <th class="text-danger">@Localizer["Delete"]</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var doktor in Model)
+        {
+            <tr>
+                <td align="center" valign="middle"></td>
+                @if (User.IsInRole(UserRoles.Role_Admin))
+                {
+                    <td>@doktor.Id</td>
+                }
+                <td align="center" valign="middle">@doktor.DoctorName</td>
+                <td align="center" valign="middle">@doktor.Polyclinic</td>
+                <td align="center" valign="middle">@doktor.WorkingTimes</td>
+                <td align="center" valign="middle">@doktor.DoctorBrans?.Ad</td>
+                @if (User.IsInRole(UserRoles.Role_Patient))
+                {
+                    <td align="center" valign="middle">
+                        <a asp-controller="Appointment" asp-action="RandevuAl" asp-route-id="@doktor.Id" type="button" class="btn btn-success btn-sm">@Localizer["BookAppointment"]</a>
+                    </td>
+                }
+                @if (User.IsInRole(UserRoles.Role_Admin))
+                {
+                    <td align="center" valign="middle">
+                        <a asp-controller="Doctor" asp-action="EkleGuncelle" asp-route-id="@doktor.Id" type="button" class="btn btn-success btn-sm">@Localizer["Update"]</a>
+                    </td>
+                    <td align="center" valign="middle">
+                        <a asp-controller="Doctor" asp-action="Sil" asp-route-id="@doktor.Id" type="button" class="btn btn-danger btn-sm">@Localizer["Delete"]</a>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

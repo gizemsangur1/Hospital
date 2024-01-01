@@ -18,7 +18,7 @@ namespace WebApplication7.Utility
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
-        public void SeedRoles(UserRolesManager userRolesManager)
+		public void SeedRoles(UserRolesManager userRolesManager)
         {
             userRolesManager.AddRolesToDatabase();
         }

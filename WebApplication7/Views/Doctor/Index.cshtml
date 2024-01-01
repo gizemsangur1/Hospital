@@ -1,4 +1,6 @@
-﻿@using WebApplication7.Utility;
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer;
+@using WebApplication7.Utility;
 @model List<Doctor>
 
 @{
@@ -24,36 +26,44 @@
 <div class="container">
     <label for="brans">Select Specialty:</label>
     <select id="brans">
-        @foreach (var doctor in Model.Where(d => d.DoctorBrans != null))
-        {
-            <option value="@doctor.DoctorBrans.Id">@doctor.DoctorBrans.Id</option>
+        @{
+
+            // Kontrol ettiğimiz id'leri bu listeye ekleyelim
+            var displayedIds = new List<int>();
+
+            foreach (var doctor in Model.Where(d => d.DoctorBrans != null))
+            {
+                // Daha önce eklenmiş bir id ise bu id'yi bir daha eklemeyelim
+                if (!displayedIds.Contains(doctor.DoctorBrans.Id))
+                {
+                    <option value="@doctor.DoctorBrans.Id">@doctor.DoctorBrans.Id</option>
+
+                    // Eklenen id'yi listede kaydedelim
+                    displayedIds.Add(doctor.DoctorBrans.Id);
+                }
+            }
         }
     </select>
 
-
-
-
-    <label for="doctors" >Select Doctor:</label>
-    <select id="doctors"></select>
 
     <button id="araBtn" class="btn btn-primary">Search</button>
 
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th class="text-primary">Doctors</th>
+                @* <th class="text-primary">Doctors</th> *@
                 @if (User.IsInRole(UserRoles.Role_Admin))
                 {
                     <th class="text-primary">id</th>
                 }
-                <th class="text-primary">Doctor Name</th>
+                @* <th class="text-primary">Doctor Name</th>
                 <th class="text-primary">Polyclinic</th>
                 <th class="text-primary">Working Times</th>
-                <th class="text-primary">Specialty</th>
-                @if (User.IsInRole(UserRoles.Role_Patient))
+                <th class="text-primary">Specialty</th> *@
+             @*    @if (User.IsInRole(UserRoles.Role_Patient))
                 {
                     <th class="text-primary">Book Appointment</th>
-                }
+                } *@
                 @if (User.IsInRole(UserRoles.Role_Admin))
                 {
                     <th style="color:forestgreen">Update</th>
@@ -70,7 +80,7 @@
                     {
                         <td>@doktor.Id</td>
                     }
-                    <td align="center" valign="middle">@doktor.DoctorName</td>
+                    @* <td align="center" valign="middle">@doktor.DoctorName</td>
                     <td align="center" valign="middle">@doktor.Polyclinic</td>
                     <td align="center" valign="middle">@doktor.WorkingTimes</td>
                     <td align="center" valign="middle">@doktor.DoctorBrans?.Ad</td>
@@ -79,7 +89,7 @@
                         <td align="center" valign="middle">
                             <a asp-controller="Appointment" asp-action="RandevuAl" asp-route-id="@doktor.Id" type="button" class="btn btn-success btn-sm">Book Appointment</a>
                         </td>
-                    }
+                    } *@
                     @if (User.IsInRole(UserRoles.Role_Admin))
                     {
                         <td align="center" valign="middle">
@@ -106,7 +116,6 @@
 
 @section scripts {
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
     <script>
         $(document).ready(function () {
             $("#brans").change(function () {
@@ -125,13 +134,14 @@
             });
 
             $("#araBtn").click(function () {
-                var selectedDoctorId = $("#doctors").val();
-                if (selectedDoctorId) {
-                    // Redirect to the appropriate action with the selectedDoctorId
-                    window.location.href = '/Doctor/GetRecords?doctorId=' + selectedDoctorId;
+                var selectedBrans = $("#brans").val();
+                if (selectedBrans) {
+                    // Redirect to the appropriate action with the selected specialty
+                    window.location.href = '/Doctor/GetRecords?brans=' + selectedBrans;
                 }
             });
         });
-
     </script>
+
+
 }

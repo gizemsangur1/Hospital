@@ -9,8 +9,34 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using WebApplication7.Models;
 using WebApplication7.Utility;
+using Microsoft.AspNetCore.Mvc.Razor;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllersWithViews()
+    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
+
+builder.Services.AddRazorPages();
+
+builder.Services.AddLocalization(options =>
+{
+    options.ResourcesPath = "Resources";
+});
+
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    var supportedCultures = new[]
+    {
+        new CultureInfo("tr-TR"),
+        new CultureInfo("en-US")
+    };
+    options.DefaultRequestCulture = new RequestCulture("en-US");
+    options.SupportedUICultures = supportedCultures;
+});
+
+
 
 // Connection String
 var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
@@ -29,11 +55,31 @@ builder.Services.AddScoped<IDoctorBransRepository, DoctorBransRepository>();
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 
-builder.Services.AddRazorPages();
-
 builder.Services.AddTransient<IEmailSender, DummyEmailSender>();
 
+
 var app = builder.Build();
+
+app.Use(async (context, next) =>
+{
+    var userLangHeader = context.Request.Headers["Accept-Language"].ToString();
+    var userLanguages = userLangHeader.Split(',').Select(x => x.Trim()).ToList();
+
+    // Kullanıcının tarayıcı tercih ettiği ilk dil
+    var userLanguage = userLanguages.FirstOrDefault();
+
+    // Kullanıcının tarayıcı dilini uygulama kültürü olarak ayarlama
+    if (!string.IsNullOrEmpty(userLanguage))
+    {
+        var cultureInfo = new CultureInfo(userLanguage);
+        CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+        CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+    }
+
+    await next();
+});
+
+app.UseRequestLocalization();
 
 // Middleware ve Configure
 if (!app.Environment.IsDevelopment())

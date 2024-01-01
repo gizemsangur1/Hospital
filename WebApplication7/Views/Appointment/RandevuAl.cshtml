@@ -1,4 +1,6 @@
-﻿@model Appointment
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer;
+@model Appointment
 
 @{
     ViewData["Title"] = "Randevu Al";
@@ -12,30 +14,30 @@
             <div class="border p-3 mt-5">
 
                 <div class="row pb-3">
-                    <h2 class="text-primary">randevu al</h2>
+                    <h2 class="text-primary">@Localizer["AddAppointment"]</h2>
                     <br>
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="PatientName" class="p-0">PatientName</label>
+                    <label asp-for="PatientName" class="p-0">@Localizer["PatientName"]</label>
                     <input asp-for="PatientName" class="form-control" readonly value="@User.Identity.Name" />
                     <span asp-validation-for="PatientName" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="DoctorId" class="p-0">Doktor adı</label>
+                    <label asp-for="DoctorId" class="p-0">@Localizer["DoctorName"]</label>
                     <select asp-for="DoctorId" asp-items="ViewBag.DoktorList" class="form-select"></select>
                     <span asp-validation-for="DoctorId" class="text-danger"></span>
                 </div>
 
 
 
-                <button type="submit" class="btn btn-lg btn-primary" style="width:250px"> randeuv al</button>
+                <button type="submit" class="btn btn-lg btn-primary" style="width:250px"> @Localizer["AddAppointment"]</button>
 
 
 
                 <a asp-controller="Doctor" asp-action="Index" class="btn btn-lg btn-primary" style="width:250px">
-                   listeye dön
+                    @Localizer["BackToList"]
 
                 </a>
 

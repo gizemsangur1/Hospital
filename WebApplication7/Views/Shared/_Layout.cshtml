@@ -20,6 +20,17 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Anasayfa</a>
                         </li>
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a class="nac-link dropdown-toggle" href="#" id="navbarDropdown" role="button">
+                                    @Thread.CurrentThread.CurrentUICulture.Name
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" >Tr</a></li>
+                                    <li><a class="dropdown-item">En</a></li>
+                                </ul>
+                            </li>
+                        </ul>
                         @if (User.IsInRole(UserRoles.Role_Admin))
                         {
                             <li class="nav-item">
@@ -36,7 +47,7 @@
                         @if (User.IsInRole(UserRoles.Role_Patient))
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Doctor" asp-action="Index">Doktor Listesi</a>
+                                <a class="nav-link" asp-area="" asp-controller="Doctor" asp-action="Index">Randevu Al</a>
                             </li>
                         }
 

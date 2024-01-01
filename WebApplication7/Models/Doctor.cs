@@ -25,11 +25,9 @@ namespace WebApplication7.Models
         [DisplayName("Poliklinik")]
         public string? Polyclinic { get; set; }
 
-     
         [DisplayName("Çalışma Gün ve Saatleri")]
         public DateTime WorkingTimes { get; set; }
 
-        
 
     }
 }

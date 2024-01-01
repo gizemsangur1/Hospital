@@ -12,8 +12,8 @@ using WebApplication7.Utility;
 namespace WebApplication7.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231231102514_docchange")]
-    partial class docchange
+    [Migration("20231231133007_addworkingtimes")]
+    partial class addworkingtimes
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -282,9 +282,6 @@ namespace WebApplication7.Migrations
                     b.Property<string>("Polyclinic")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("WorkingTimes")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("Id");
 
                     b.HasIndex("DoctorBransId");
@@ -308,6 +305,27 @@ namespace WebApplication7.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DoctorBranslari");
+                });
+
+            modelBuilder.Entity("WebApplication7.Models.WorkingTime", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("WorkingDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.ToTable("WorkingTimes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -377,6 +395,22 @@ namespace WebApplication7.Migrations
                         .HasForeignKey("DoctorBransId");
 
                     b.Navigation("DoctorBrans");
+                });
+
+            modelBuilder.Entity("WebApplication7.Models.WorkingTime", b =>
+                {
+                    b.HasOne("WebApplication7.Models.Doctor", "Doctor")
+                        .WithMany("WorkingTimes")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+                });
+
+            modelBuilder.Entity("WebApplication7.Models.Doctor", b =>
+                {
+                    b.Navigation("WorkingTimes");
                 });
 #pragma warning restore 612, 618
         }

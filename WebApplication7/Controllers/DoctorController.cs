@@ -12,7 +12,7 @@ namespace WebApplication7.Controllers
         private readonly IDoctorRepository _doctorRepository;
         private readonly IDoctorBransRepository _doctorBransRepository;
         public readonly IWebHostEnvironment _webHostEnvironment;
-        
+
 
         public DoctorController(IDoctorRepository doctorRepository, IDoctorBransRepository doctorBransRepository, IWebHostEnvironment webHostEnvironment)
         {
@@ -28,16 +28,26 @@ namespace WebApplication7.Controllers
             return View(objDoktorList);
         }
 
+        //[HttpGet]
+        //public IActionResult GetRecordsBySpecialty(int brans)
+        //{
+        //    var doctors = _doctorRepository.GetAll(includeProps: "DoctorBrans")
+        //        .Where(d => d.DoctorBrans.Id == brans)
+        //        .ToList();
+
+        //    return View(doctors);
+        //}
+
+
         [HttpGet]
-        public IActionResult GetDoctorsBySpecialty(string brans)
+        public IActionResult GetRecords(int brans)
         {
-            var doctors = _doctorRepository.GetAll()
-                .Where(d => d.DoctorBrans.Id.ToString() == brans)
-                .Select(d => new { value = d.Id, text = d.DoctorName });
+            var doctors = _doctorRepository.GetAll(includeProps: "DoctorBrans")
+               .Where(d => d.DoctorBrans.Id == brans)
+               .ToList();
 
-            return Json(doctors);
+            return View(doctors);
         }
-
 
 
         [Authorize(Roles = UserRoles.Role_Admin)]
@@ -114,7 +124,7 @@ namespace WebApplication7.Controllers
                 else
                 {
                     _doctorRepository.Guncelle(doktor);
-                    TempData["basarili"] ="Doktor kayıt güncelleme işlemi başarılı!";
+                    TempData["basarili"] = "Doktor kayıt güncelleme işlemi başarılı!";
                 }
 
                 _doctorRepository.Kaydet();

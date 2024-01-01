@@ -1,4 +1,6 @@
-﻿@model Doctor
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer;
+@model Doctor
 
 @{
     ViewData["Title"] = Model == null ? "Doktor Ekle" : "Doktor Güncelle";
@@ -14,7 +16,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="DoctorName" class="p-0">Doktor</label>
+                    <label asp-for="DoctorName" class="p-0">@Localizer["Doctor"]</label>
                     <input asp-for="DoctorName" class="form-control" />
                     <span asp-validation-for="DoctorName" class="text-danger"></span>
                 </div>
@@ -25,13 +27,13 @@
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="Polyclinic" class="p-0">Poliklinik</label>
+                    <label asp-for="Polyclinic" class="p-0">@Localizer["Polyclinic"]</label>
                     <input asp-for="Polyclinic" class="form-control" />
                     <span asp-validation-for="Polyclinic" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="WorkingTimes" class="p-0">Çalışma Gün ve Saatleri</label>
+                    <label asp-for="WorkingTimes" class="p-0">@Localizer["WorkingTimes"]</label>
                     <input asp-for="WorkingTimes" class="form-control" type="datetime-local" asp-format="{0:dd-MM-yyyyTHH:mm}" />
                     <span asp-validation-for="WorkingTimes" class="text-danger"></span>
                 </div>
@@ -39,7 +41,7 @@
                 <button type="submit" class="btn btn-lg btn-primary" style="width:250px">@(Model == null ? "Ekle" : "Güncelle")</button>
 
                 <a asp-controller="Doctor" asp-action="Index" class="btn btn-lg btn-primary" style="width:250px">
-                    Listeye geri dön
+                    @Localizer["BackToList"]
                 </a>
             </div>
         </div>

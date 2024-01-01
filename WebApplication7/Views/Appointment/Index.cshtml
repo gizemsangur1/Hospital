@@ -1,4 +1,6 @@
 ﻿@using WebApplication7.Utility;
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer;
 @model List<Appointment>
 @{
     ViewData["Title"] = "Randevu İşlemleri";
@@ -21,27 +23,28 @@
 
             <tr>
 
-                <th class="text-primary">
-                    id
-                </th>
 
                 <th class="text-primary">
-                   Hasta id
+                   @Localizer["PatientName"]
                 </th>
 
 
                 <th class="text-primary">
-                   Doktor adı
+                    @Localizer["DoctorName"]
+
                 </th>
                 <th class="text-primary">
-                    Randevu zamanı
+                    @Localizer["AppointmentTime"]
+
                 </th>
                 <th style="color:forestgreen">
-                   Güncelle
+                    @Localizer["Update"]
+
                 </th>
 
                 <th class="text-danger">
-                   Sil
+                    @Localizer["Delete"]
+
                 </th>
 
 
@@ -59,7 +62,6 @@
 
                 <tr>
 
-                    <td>@appointment.Id</td>
                     <td>@appointment.PatientName</td>
 
 
@@ -68,10 +70,14 @@
                     <td>@appointment.Doctor.WorkingTimes</td>
 
                     <td>
-                        <a asp-controller="Appointment" asp-action="EkleGuncelle" asp-route-id="@appointment.Id" type="button" class="btn btn-success btn-sm"> güncelle</a>
+                        <a asp-controller="Appointment" asp-action="EkleGuncelle" asp-route-id="@appointment.Id" type="button" class="btn btn-success btn-sm">
+                            @Localizer["Update"]
+                        </a>
                     </td>
                     <td>
-                        <a asp-controller="Appointment" asp-action="Sil" asp-route-id="@appointment.Id" type="button" class="btn btn-danger btn-sm">Sil</a>
+                        <a asp-controller="Appointment" asp-action="Sil" asp-route-id="@appointment.Id" type="button" class="btn btn-danger btn-sm">
+                            @Localizer["Delete"]
+                        </a>
                     </td>
 
 
@@ -83,7 +89,9 @@
 
     <div class="row pt-3 pb-2">
         <div>
-            <a asp-controller="Appointment" asp-action="EkleGuncelle" class="btn btn-lg btn-primary" type="button"> Yeni randevu</a>
+            <a asp-controller="Appointment" asp-action="EkleGuncelle" class="btn btn-lg btn-primary" type="button">
+                @Localizer["AddAppointment"]
+            </a>
         </div>
     </div>
 
