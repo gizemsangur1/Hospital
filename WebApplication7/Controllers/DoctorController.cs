@@ -28,15 +28,6 @@ namespace WebApplication7.Controllers
             return View(objDoktorList);
         }
 
-        //[HttpGet]
-        //public IActionResult GetRecordsBySpecialty(int brans)
-        //{
-        //    var doctors = _doctorRepository.GetAll(includeProps: "DoctorBrans")
-        //        .Where(d => d.DoctorBrans.Id == brans)
-        //        .ToList();
-
-        //    return View(doctors);
-        //}
 
 
         [HttpGet]
@@ -76,7 +67,7 @@ namespace WebApplication7.Controllers
 
 
 
-                Doctor? doktorDb = _doctorRepository.Get(u => u.Id == id);//Expression<Func<T, bool>> filtre kısmı
+                Doctor? doktorDb = _doctorRepository.Get(u => u.Id == id);
 
                 if (doktorDb == null)
                 {
@@ -93,7 +84,7 @@ namespace WebApplication7.Controllers
 
 
 
-        [HttpPost]//bunu yazmazsan yukarıda aynı isimle action olduğu için "catch" çalışır, sayfayı göremezsin.
+        [HttpPost]
         [Authorize(Roles = UserRoles.Role_Admin)]
         public IActionResult EkleGuncelle(Doctor doktor, IFormFile? file)
         {
@@ -154,7 +145,7 @@ namespace WebApplication7.Controllers
 
 
 
-            Doctor? doktorDb = _doctorRepository.Get(u => u.Id == id);//Expression<Func<T, bool>> filtre kısmı
+            Doctor? doktorDb = _doctorRepository.Get(u => u.Id == id);
 
             if (doktorDb == null)
             {
@@ -169,13 +160,13 @@ namespace WebApplication7.Controllers
         }
 
 
-        [HttpPost, ActionName("Sil")]//bunu yazmazsan yukarıda aynı isimle action olduğu için "catch" çalışır, sayfayı göremezsin.
+        [HttpPost, ActionName("Sil")]
         [Authorize(Roles = UserRoles.Role_Admin)]
         public IActionResult SilPOST(int? id)
         {
 
 
-            Doctor? doktor = _doctorRepository.Get(u => u.Id == id);//Expression<Func<T, bool>> filtre kısmı
+            Doctor? doktor = _doctorRepository.Get(u => u.Id == id);
 
             if (doktor == null)
             {

@@ -9,20 +9,20 @@
     <div class="border p-3 mt-5">
 
         <div class="row pb-3">
-            <h2 class="text-primary">Branş ekle</h2>
+            <h2 class="text" style="color:#311b63">@Localizer["AddSpecialty"]</h2>
             <br>
         </div>
 
         <div class="mb-3">
-            <label asp-for="Ad" class="p-0">Branş adı</label>
+            <label asp-for="Ad" class="p-0">@Localizer["SpecialtyName"]</label>
             <input asp-for="Ad" class="form-control" />
             <span asp-validation-for="Ad" class="text-danger"></span>
         </div>
 
-        <button type="submit" class="btn btn-lg btn-primary" style="width:250px">Branş ekle</button>
+        <button type="submit" class="btn btn-lg " style="background-color:#311b63;color:aliceblue;width:250px">@Localizer["AddSpecialty"]</button>
 
-        <a asp-controller="DoctorBrans" asp-action="Index" class="btn btn-lg btn-primary" style="width:250px">
-           Listeye dön
+        <a asp-controller="DoctorBrans" asp-action="Index" class="btn btn-lg " style="background-color:#311b63;color:aliceblue;width:250px">
+            @Localizer["BackToList"]
         </a>
 
     </div>

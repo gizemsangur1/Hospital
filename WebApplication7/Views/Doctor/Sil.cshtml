@@ -15,32 +15,32 @@
     <div class="border p-3 mt-5">
 
         <div class="row pb-3">
-            <h2 class="text-primary">Doktor sil</h2>
+            <h2 class="text" style="color:#311b63">>@Localizer["DeleteDoctor"]</h2>
             </hr>
         </div>
 
 
         <div class="mb-3">
-            <label asp-for="DoctorName" class="p-0">Doktor adı</label>
+            <label asp-for="DoctorName" class="p-0">>@Localizer["DoctorName"]</label>
             <input asp-for="DoctorName" disabled class="form-control" />
         </div>
 
         <div class="mb-3">
-            <label asp-for="Polyclinic" class="p-0">Poliklinik</label>
+            <label asp-for="Polyclinic" class="p-0">>@Localizer["Polyclinic"]</label>
             <input asp-for="Polyclinic" disabled class="form-control" />
         </div>
 
         <div class="mb-3">
-            <label asp-for="WorkingTimes" class="p-0">Çalışma saatleri</label>
+            <label asp-for="WorkingTimes" class="p-0">>@Localizer["WorkingTime"]</label>
             <input asp-for="WorkingTimes" disabled class="form-control" />
         </div>
 
 
 
-        <button type="submit" class="btn btn-lg btn-primary" style="width:250px">Sil</button>
+        <button type="submit" class="btn btn-lg " style="background-color:#311b63;color:aliceblue;width:250px">>@Localizer["Delete"]</button>
 
-        <a asp-controller="Doctor" asp-action="Index" class="btn btn-lg btn-primary" style="width:250px">
-          Geri dön
+        <a asp-controller="Doctor" asp-action="Index" class="btn btn-lg " style="background-color:#311b63;color:aliceblue;width:250px">
+            >@Localizer["BackToList"]
         </a>
 
     </div>

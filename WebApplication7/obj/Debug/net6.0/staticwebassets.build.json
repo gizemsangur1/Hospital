@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "GyLk2fxL0+UGFHKw7wXKeUERTVXv8z1218BGB682E0I=",
+  "Hash": "EgzdCX/Q2PCarvsh9ABZEvmWoVqjiSBccvwxhZopT1Y=",
   "Source": "WebApplication7",
   "BasePath": "_content/WebApplication7",
   "Mode": "Default",
@@ -1069,6 +1069,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\gizem\\source\\repos\\WebApplication7\\WebApplication7\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\WebApplication7.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\gizem\\source\\repos\\WebApplication7\\WebApplication7\\wwwroot\\css\\Hospital.jpg",
+      "SourceId": "WebApplication7",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\gizem\\source\\repos\\WebApplication7\\WebApplication7\\wwwroot\\",
+      "BasePath": "_content/WebApplication7",
+      "RelativePath": "css/Hospital.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\Hospital.jpg"
     },
     {
       "Identity": "C:\\Users\\gizem\\source\\repos\\WebApplication7\\WebApplication7\\wwwroot\\css\\site.css",

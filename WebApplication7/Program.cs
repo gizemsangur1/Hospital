@@ -1,9 +1,6 @@
-// Proje klas�r�ndeki Startup.cs
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +9,13 @@ using WebApplication7.Utility;
 using Microsoft.AspNetCore.Mvc.Razor;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Identity.UI.Services;
+
+var supportedCultures = new[]
+{
+    new CultureInfo("tr-TR"),
+    new CultureInfo("en-US")
+};
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,16 +31,10 @@ builder.Services.AddLocalization(options =>
 
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
-    var supportedCultures = new[]
-    {
-        new CultureInfo("tr-TR"),
-        new CultureInfo("en-US")
-    };
-    options.DefaultRequestCulture = new RequestCulture("en-US");
     options.SupportedUICultures = supportedCultures;
+
+    options.RequestCultureProviders.Insert(0, new QueryStringRequestCultureProvider());
 });
-
-
 
 // Connection String
 var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
@@ -57,8 +55,10 @@ builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 
 builder.Services.AddTransient<IEmailSender, DummyEmailSender>();
 
-
 var app = builder.Build();
+
+// Dil Değişimi Middleware
+app.UseRequestLocalization();
 
 app.Use(async (context, next) =>
 {
@@ -71,15 +71,30 @@ app.Use(async (context, next) =>
     // Kullanıcının tarayıcı dilini uygulama kültürü olarak ayarlama
     if (!string.IsNullOrEmpty(userLanguage))
     {
-        var cultureInfo = new CultureInfo(userLanguage);
-        CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
-        CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+        var supportedCultures = new[]
+        {
+            new CultureInfo("tr-TR"),
+            new CultureInfo("en-US")
+        };
+
+        if (supportedCultures.Any(c => c.Name == userLanguage))
+        {
+            var cultureInfo = new CultureInfo(userLanguage);
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
+            // Log
+            Console.WriteLine($"Selected culture: {userLanguage}");
+        }
+        else
+        {
+            // Log
+            Console.WriteLine($"Unsupported culture: {userLanguage}");
+        }
     }
 
     await next();
 });
-
-app.UseRequestLocalization();
 
 // Middleware ve Configure
 if (!app.Environment.IsDevelopment())

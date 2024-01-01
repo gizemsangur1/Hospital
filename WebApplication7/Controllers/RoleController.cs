@@ -31,26 +31,22 @@ public class RoleController : Controller
 
             await _userManager.AddToRoleAsync(user, roleName);
 
-            // Check if the user is in the "Admin" role after assignment
             var isInAdminRole = await _userManager.IsInRoleAsync(user, roleName);
             if (isInAdminRole)
             {
-                // Log or debug statement
                 Console.WriteLine($"User {user.UserName} successfully assigned to {roleName} role.");
             }
             else
             {
-                // Log or debug statement
                 Console.WriteLine($"Failed to assign {roleName} role to user {user.UserName}.");
             }
 
-            return RedirectToAction("Index", "Home"); // Redirect to the desired location.
+            return RedirectToAction("Index", "Home"); 
         }
 
         return NotFound();
     }
 
-    // Bu eylem tüm kullanıcıları "Patient" rolüne atar, Admin hariç
     public async Task<IActionResult> AssignPatientsRole()
     {
         var roleName = UserRoles.Role_Patient;
@@ -72,6 +68,6 @@ public class RoleController : Controller
             }
         }
 
-        return RedirectToAction("Index", "Home"); // İstenirse başka bir yere yönlendirilebilir.
+        return RedirectToAction("Index", "Home"); 
     }
 }

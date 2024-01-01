@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\WebApplication7.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\gizem\\source\\repos\\WebApplication7\\WebApplication7\\wwwroot\\css\\Hospital.jpg",
+      "PackagePath": "staticwebassets\\css\\Hospital.jpg"
+    },
+    {
       "Id": "C:\\Users\\gizem\\source\\repos\\WebApplication7\\WebApplication7\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

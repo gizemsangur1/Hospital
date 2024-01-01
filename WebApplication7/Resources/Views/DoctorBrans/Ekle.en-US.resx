@@ -177,6 +177,9 @@
   <data name="Specialty" xml:space="preserve">
     <value>Specialty</value>
   </data>
+  <data name="SpecialtyName" xml:space="preserve">
+    <value>Specialty Name</value>
+  </data>
   <data name="Update" xml:space="preserve">
     <value>Update</value>
   </data>

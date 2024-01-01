@@ -13,33 +13,33 @@
             <div class="border p-3 mt-5">
 
                 <div class="row pb-3">
-                    <h2 class="text-primary">@(Model == null ? @Localizer["AddAppointment"] : @Localizer["Update"])</h2>
+                    <h2 class="text" style="color:#311b63">@(Model == null ? @Localizer["AddAppointment"] : @Localizer["Update"])</h2>
                     <br>
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="PatientName" class="p-0">@Localizer["PatientName"]</label>
+                    <label asp-for="PatientName" class="p-0" style="color:#311b63">@Localizer["PatientName"]</label>
                     <input asp-for="PatientName" class="form-control" readonly value="@User.Identity.Name" />
                     <span asp-validation-for="PatientName" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="DoctorId" class="p-0">@Localizer["DoctorName"]</label>
+                    <label asp-for="DoctorId" class="p-0" style="color:#311b63">@Localizer["DoctorName"]</label>
                     <select asp-for="DoctorId" asp-items="ViewBag.DoktorList" class="form-select"></select>
                     <span asp-validation-for="DoctorId" class="text-danger"></span>
                 </div>
 
                 @if (Model != null)
                 {
-                    <button type="submit" class="btn btn-lg btn-primary" style="width:250px">@Localizer["Update"]</button>
+                    <button type="submit" class="btn btn-lg " style="background-color:#311b63;color:aliceblue;width:250px">@Localizer["Update"]</button>
                 }
                 else
                 {
-                    <button type="submit" class="btn btn-lg btn-primary" style="width:250px">@Localizer["AddAppointment"]</button>
+                    <button type="submit" class="btn btn-lg " style="background-color:#311b63;color:aliceblue;width:250px">@Localizer["AddAppointment"]</button>
                 }
 
 
-                <a asp-controller="Appointment" asp-action="Index" class="btn btn-lg btn-primary" style="width:250px">
+                <a asp-controller="Appointment" asp-action="Index" class="btn btn-lg" style="background-color:#311b63;color:aliceblue;width:250px">
                     @Localizer["BackToList"]
                 </a>
 

@@ -1,4 +1,14 @@
-﻿@using WebApplication7.Utility;
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer;
+@using WebApplication7.Utility;
+@{
+    var supportedCultures = new[]
+    {
+        new System.Globalization.CultureInfo("en-US"),
+        new System.Globalization.CultureInfo("tr-TR")
+        
+    };
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,43 +21,48 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow mb-3" style="background-color:#311b63">
             <div class="container-fluid">
                
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Anasayfa</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">@Localizer["MainPage"]</a>
                         </li>
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown">
-                                <a class="nac-link dropdown-toggle" href="#" id="navbarDropdown" role="button">
-                                    @Thread.CurrentThread.CurrentUICulture.Name
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    @Thread.CurrentThread.CurrentUICulture.DisplayName
                                 </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" >Tr</a></li>
-                                    <li><a class="dropdown-item">En</a></li>
-                                </ul>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    @foreach (var culture in supportedCultures)
+                                    {
+                                        <a class="dropdown-item" href="?culture=@culture.Name">@culture.DisplayName</a>
+                                    }
+                                </div>
                             </li>
                         </ul>
                         @if (User.IsInRole(UserRoles.Role_Admin))
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="DoctorBrans" asp-action="Index">Branşlar</a>
+                                <a class="nav-link" asp-area="" asp-controller="DoctorBrans" asp-action="Index">@Localizer["Speacialities"]</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Doctor" asp-action="Index">Doktrolar</a>
+                                <a class="nav-link" asp-area="" asp-controller="Doctor" asp-action="Index">@Localizer["Doctors"]</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Appointment" asp-action="Index">Randevu</a>
+                                <a class="nav-link" asp-area="" asp-controller="Appointment" asp-action="Index">@Localizer["Appointment"]</a>
                             </li>
                         }
 
                         @if (User.IsInRole(UserRoles.Role_Patient))
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Doctor" asp-action="Index">Randevu Al</a>
+                                <a class="nav-link" asp-area="" asp-controller="Appointment" asp-action="RandevuAl">@Localizer["BookAppointment"]</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Appointment" asp-action="Index">@Localizer["Appointment"]</a>
                             </li>
                         }
 

@@ -11,25 +11,25 @@
     <div class="border p-3 mt-5">
 
         <div class="row pb-3">
-            <h2 class="text-primary"> @Localizer["Delete"]</h2>
+            <h2 class="text" style="color:#311b63"> @Localizer["Delete"]</h2>
             </hr>
         </div>
 
 
         <div class="mb-3">
-            <label asp-for="PatientName" class="p-0">@Localizer["PatientName"]</label>
+            <label asp-for="PatientName" class="p-0" style="color:#311b63">@Localizer["PatientName"]</label>
             <input asp-for="PatientName" disabled class="form-control" />
         </div>
 
         <div class="mb-3">
-            <label asp-for="DoctorId" class="p-0">@Localizer["DoctorName"]</label>
+            <label asp-for="DoctorId" class="p-0" style="color:#311b63">@Localizer["DoctorName"]</label>
             <select asp-for="DoctorId" asp-items="ViewBag.DoktorList" disabled class="form-select"></select>
             <span asp-validation-for="DoctorId" class="text-danger"></span>
         </div>
 
-        <button type="submit" class="btn btn-lg btn-primary" style="width:250px">@Localizer["Delete"]</button>
+        <button type="submit" class="btn btn-lg " style="background-color:#311b63;color:aliceblue;width:250px">@Localizer["Delete"]</button>
 
-        <a asp-controller="Appointment" asp-action="Index" class="btn btn-lg btn-primary" style="width:250px">
+        <a asp-controller="Appointment" asp-action="Index" class="btn btn-lg " style="background-color:#311b63;color:aliceblue;width:250px">
             @Localizer["BackToList"]
         </a>
 

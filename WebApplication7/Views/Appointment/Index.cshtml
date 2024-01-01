@@ -3,97 +3,130 @@
 @inject IViewLocalizer Localizer;
 @model List<Appointment>
 @{
-    ViewData["Title"] = "Randevu İşlemleri";
+	ViewData["Title"] = "Randevu İşlemleri";
 }
-@if (TempData["basarili"] != null)
+@if (User.IsInRole(UserRoles.Role_Admin))
 {
-    <h2 style="color:forestgreen">@TempData["basarili"]</h2>
+	if (TempData["basarili"] != null)
+	{
+		<h2 style="color:forestgreen">@TempData["basarili"]</h2>
+	}
+}
+
+@if (User.IsInRole(UserRoles.Role_Patient))
+{
+	if (TempData["basarili1"] != null)
+	{
+		<h2 style="color:forestgreen">@TempData["basarili1"]</h2>
+	}
 }
 
 <div class="container">
-    <div class="row pt-3 pb-4">
-        <div>
-            <h1 class="text-primary">Rnadevu işlemleri</h1>
-        </div>
-    </div>
-    <table class="table table-bordered">
+	<div class="row pt-3 pb-4">
+		<div>
+			<h1 class="text" style="color:#311b63"> @Localizer["Appointment"]</h1>
+		</div>
+	</div>
+	<table class="table table-bordered">
 
-        <thead>
-
-
-            <tr>
+		<thead>
 
 
-                <th class="text-primary">
-                   @Localizer["PatientName"]
-                </th>
+			<tr>
 
 
-                <th class="text-primary">
-                    @Localizer["DoctorName"]
-
-                </th>
-                <th class="text-primary">
-                    @Localizer["AppointmentTime"]
-
-                </th>
-                <th style="color:forestgreen">
-                    @Localizer["Update"]
-
-                </th>
-
-                <th class="text-danger">
-                    @Localizer["Delete"]
-
-                </th>
+				<th class="text" style="color:#311b63">
+					@Localizer["PatientName"]
+				</th>
 
 
+				<th class="text" style="color:#311b63">
+					@Localizer["DoctorName"]
 
-            </tr>
+				</th>
+				<th class="text" style="color:#311b63">
+					@Localizer["AppointmentTime"]
 
+				</th>
+				@if (User.IsInRole(UserRoles.Role_Admin))
+			{
+				<th style="color:forestgreen">
+					@Localizer["Update"]
 
-        </thead>
+				</th>
+			}
+				<th class="text-danger">
+					@Localizer["Delete"]
 
-
-        <tbody>
-            @foreach (var appointment in Model)
-            {
-
-
-                <tr>
-
-                    <td>@appointment.PatientName</td>
-
-
-                    <!-- <td>@*@randevu.DoktorId*@</td>-->
-                    <td>@appointment.Doctor.DoctorName</td>
-                    <td>@appointment.Doctor.WorkingTimes</td>
-
-                    <td>
-                        <a asp-controller="Appointment" asp-action="EkleGuncelle" asp-route-id="@appointment.Id" type="button" class="btn btn-success btn-sm">
-                            @Localizer["Update"]
-                        </a>
-                    </td>
-                    <td>
-                        <a asp-controller="Appointment" asp-action="Sil" asp-route-id="@appointment.Id" type="button" class="btn btn-danger btn-sm">
-                            @Localizer["Delete"]
-                        </a>
-                    </td>
+				</th>
 
 
-                </tr>
-            }
-        </tbody>
 
-    </table>
+			</tr>
 
-    <div class="row pt-3 pb-2">
-        <div>
-            <a asp-controller="Appointment" asp-action="EkleGuncelle" class="btn btn-lg btn-primary" type="button">
-                @Localizer["AddAppointment"]
-            </a>
-        </div>
-    </div>
 
+		</thead>
+
+
+		<tbody>
+			@if (User.IsInRole(UserRoles.Role_Admin))
+			{
+				@foreach (var appointment in Model)
+				{
+
+					<tr>
+
+						<td>@appointment.PatientName</td>
+
+
+						<!-- <td>@*@randevu.DoktorId*@</td>-->
+						<td>@appointment.Doctor.DoctorName</td>
+						<td>@appointment.Doctor.WorkingTimes</td>
+
+						<td>
+							<a asp-controller="Appointment" asp-action="EkleGuncelle" asp-route-id="@appointment.Id" type="button" class="btn btn-success btn-sm">
+								@Localizer["Update"]
+							</a>
+						</td>
+						<td>
+							<a asp-controller="Appointment" asp-action="Sil" asp-route-id="@appointment.Id" type="button" class="btn btn-danger btn-sm">
+								@Localizer["Delete"]
+							</a>
+						</td>
+
+
+					</tr>
+				}
+			}
+			@if (User.IsInRole(UserRoles.Role_Patient))
+			{
+				@foreach (var appointment in Model.Where(a => a.PatientName == User.Identity.Name))
+				{
+					<tr>
+						<td>@appointment.PatientName</td>
+						<td>@appointment.Doctor.DoctorName</td>
+						<td>@appointment.Doctor.WorkingTimes</td>
+						<td>
+							<a asp-controller="Appointment" asp-action="Sil" asp-route-id="@appointment.Id" type="button" class="btn btn-danger btn-sm">
+								@Localizer["Delete"]
+							</a>
+						</td>
+					</tr>
+				}
+			}
+
+		</tbody>
+
+	</table>
+	@if (User.IsInRole(UserRoles.Role_Admin))
+			{
+	<div class="row pt-3 pb-2">
+		<div>
+			<a asp-controller="Appointment" asp-action="EkleGuncelle" class="btn btn-lg " style="background-color:#311b63;color:aliceblue;width:250px" type="button">
+				@Localizer["AddAppointment"]
+			</a>
+		</div>
+	</div>
+			}
 
 </div>

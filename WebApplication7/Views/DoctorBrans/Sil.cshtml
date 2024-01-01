@@ -12,18 +12,18 @@
     <div class="border p-3 mt-5">
 
         <div class="row pb-3">
-            <h2 class="text-primary"> Sil</h2>
+            <h2 class="text" style="color:#311b63"> @Localizer["Delete"]</h2>
             </hr>
         </div>
 
         <div class="mb-3">
-            <label asp-for="Ad" class="p-0">Branş Adı</label>
+            <label asp-for="Ad" class="p-0">@Localizer["Specialty"]</label>
             <input asp-for="Ad" class="form-control" />
         </div>
-        <button type="submit" class="btn btn-lg btn-primary" style="width:250px">Sil</button>
+        <button type="submit" class="btn btn-lg" style="background-color:#311b63;color:aliceblue;width:250px">@Localizer["Delete"]</button>
 
-        <a asp-controller="DoktorBrans" asp-action="Index" class="btn btn-lg btn-primary" style="width:250px">
-           Geri dön
+        <a asp-controller="DoctorBrans" asp-action="Index" class="btn btn-lg" style="background-color:#311b63;color:aliceblue;width:250px">
+            @Localizer["BackToList"]
         </a>
 
     </div>

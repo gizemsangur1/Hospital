@@ -24,50 +24,51 @@
 }
 
 <div class="container">
-    <label for="brans">Select Specialty:</label>
-    <select id="brans">
-        @{
+    <div class="row pt-3 pb-4">
+        <div>
+			<label for="brans" style="color:#311b63">Select Specialty:</label>
+			<select id="brans">
+				@{
 
-            // Kontrol ettiğimiz id'leri bu listeye ekleyelim
-            var displayedIds = new List<int>();
+					// Kontrol ettiğimiz id'leri bu listeye ekleyelim
+					var displayedIds = new List<int>();
 
-            foreach (var doctor in Model.Where(d => d.DoctorBrans != null))
-            {
-                // Daha önce eklenmiş bir id ise bu id'yi bir daha eklemeyelim
-                if (!displayedIds.Contains(doctor.DoctorBrans.Id))
-                {
-                    <option value="@doctor.DoctorBrans.Id">@doctor.DoctorBrans.Id</option>
+					foreach (var doctor in Model.Where(d => d.DoctorBrans != null))
+					{
+						// Daha önce eklenmiş bir id ise bu id'yi bir daha eklemeyelim
+						if (!displayedIds.Contains(doctor.DoctorBrans.Id))
+						{
+							<option value="@doctor.DoctorBrans.Id">@doctor.DoctorBrans.Ad</option>
 
-                    // Eklenen id'yi listede kaydedelim
-                    displayedIds.Add(doctor.DoctorBrans.Id);
-                }
-            }
-        }
-    </select>
+							// Eklenen id'yi listede kaydedelim
+							displayedIds.Add(doctor.DoctorBrans.Id);
+						}
+					}
+				}
+			</select>
+            <button id="araBtn" class="btn " style="background-color:#311b63;color:aliceblue;width:150px"> @Localizer["Search"]</button>
 
-
-    <button id="araBtn" class="btn btn-primary">Search</button>
+        </div>
+    </div>
 
     <table class="table table-bordered">
         <thead>
             <tr>
-                @* <th class="text-primary">Doctors</th> *@
                 @if (User.IsInRole(UserRoles.Role_Admin))
                 {
-                    <th class="text-primary">id</th>
                 }
-                @* <th class="text-primary">Doctor Name</th>
-                <th class="text-primary">Polyclinic</th>
-                <th class="text-primary">Working Times</th>
-                <th class="text-primary">Specialty</th> *@
-             @*    @if (User.IsInRole(UserRoles.Role_Patient))
+                <th class="text" style="color:#311b63;"> @Localizer["DoctorName"]</th>
+                <th class="text" style="color:#311b63;"> @Localizer["Polyclinic"]</th>
+                <th class="text" style="color:#311b63;"> @Localizer["WorkingTime"]</th>
+                <th class="text" style="color:#311b63;"> @Localizer["Specialty"]</th>
+                @if (User.IsInRole(UserRoles.Role_Patient))
                 {
-                    <th class="text-primary">Book Appointment</th>
-                } *@
+                    <th class="text-primary"> @Localizer["BookAppointment"]</th>
+                }
                 @if (User.IsInRole(UserRoles.Role_Admin))
                 {
-                    <th style="color:forestgreen">Update</th>
-                    <th class="text-danger">Delete</th>
+                    <th style="color:forestgreen"> @Localizer["Update"]</th>
+                    <th class="text-danger"> @Localizer["Delete"]</th>
                 }
             </tr>
         </thead>
@@ -75,28 +76,26 @@
             @foreach (var doktor in Model)
             {
                 <tr>
-                    <td align="center" valign="middle"></td>
                     @if (User.IsInRole(UserRoles.Role_Admin))
                     {
-                        <td>@doktor.Id</td>
                     }
-                    @* <td align="center" valign="middle">@doktor.DoctorName</td>
+                    <td align="center" valign="middle">@doktor.DoctorName</td>
                     <td align="center" valign="middle">@doktor.Polyclinic</td>
                     <td align="center" valign="middle">@doktor.WorkingTimes</td>
                     <td align="center" valign="middle">@doktor.DoctorBrans?.Ad</td>
                     @if (User.IsInRole(UserRoles.Role_Patient))
                     {
                         <td align="center" valign="middle">
-                            <a asp-controller="Appointment" asp-action="RandevuAl" asp-route-id="@doktor.Id" type="button" class="btn btn-success btn-sm">Book Appointment</a>
+                            <a asp-controller="Appointment" asp-action="RandevuAl" asp-route-id="@doktor.Id" type="button" class="btn btn-success btn-sm">@Localizer["BookAppointment"]</a>
                         </td>
-                    } *@
+                    }
                     @if (User.IsInRole(UserRoles.Role_Admin))
                     {
                         <td align="center" valign="middle">
-                            <a asp-controller="Doctor" asp-action="EkleGuncelle" asp-route-id="@doktor.Id" type="button" class="btn btn-success btn-sm">Update</a>
+                            <a asp-controller="Doctor" asp-action="EkleGuncelle" asp-route-id="@doktor.Id" type="button" class="btn btn-success btn-sm">@Localizer["Update"]</a>
                         </td>
                         <td align="center" valign="middle">
-                            <a asp-controller="Doctor" asp-action="Sil" asp-route-id="@doktor.Id" type="button" class="btn btn-danger btn-sm">Delete</a>
+                            <a asp-controller="Doctor" asp-action="Sil" asp-route-id="@doktor.Id" type="button" class="btn btn-danger btn-sm">@Localizer["Delete"]</a>
                         </td>
                     }
                 </tr>
@@ -108,7 +107,7 @@
     {
         <div class="row pt-3 pb-2">
             <div>
-                <a asp-controller="Doctor" asp-action="EkleGuncelle" class="btn btn-lg btn-primary" type="button">Add Doctor</a>
+                <a asp-controller="Doctor" asp-action="EkleGuncelle" class="btn btn-lg " style="background-color:#311b63;color:aliceblue;width:250px" type="button">@Localizer["AddDoctor"]</a>
             </div>
         </div>
     }
@@ -142,6 +141,5 @@
             });
         });
     </script>
-
 
 }

@@ -316,3 +316,5 @@ C:\Users\gizem\source\repos\WebApplication7\WebApplication7\obj\Debug\net6.0\Web
 C:\Users\gizem\source\repos\WebApplication7\WebApplication7\obj\Debug\net6.0\WebApplication7.Resources.Views.Doctor.GetRecords.en-US.resources
 C:\Users\gizem\source\repos\WebApplication7\WebApplication7\obj\Debug\net6.0\WebApplication7.Resources.Views.Doctor.Index.en-US.resources
 C:\Users\gizem\source\repos\WebApplication7\WebApplication7\obj\Debug\net6.0\WebApplication7.Resources.Views.Doctor.Sil.en-US.resources
+C:\Users\gizem\source\repos\WebApplication7\WebApplication7\bin\Debug\net6.0\System.Net.Http.Json.dll
+C:\Users\gizem\source\repos\WebApplication7\WebApplication7\bin\Debug\net6.0\System.Text.Json.dll

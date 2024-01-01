@@ -7,18 +7,18 @@
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th class="text-primary">@Localizer["Doctors"]</th>
             @if (User.IsInRole(UserRoles.Role_Admin))
             {
-                <th class="text-primary">id</th>
+            <th class="text" style="color:#311b63">Id</th>
+                
             }
-            <th class="text-primary">@Localizer["DoctorName"]</th>
-            <th class="text-primary">@Localizer["Polyclinic"]</th>
-            <th class="text-primary">@Localizer["Working Time"]</th>
-            <th class="text-primary">@Localizer["Specialty"]</th>
+            <th class="text" style="color:#311b63">@Localizer["DoctorName"]</th>
+            <th class="text" style="color:#311b63">@Localizer["Polyclinic"]</th>
+            <th class="text" style="color:#311b63">@Localizer["Working Time"]</th>
+            <th class="text" style="color:#311b63">@Localizer["Specialty"]</th>
             @if (User.IsInRole(UserRoles.Role_Patient))
             {
-                <th class="text-primary">@Localizer["BookAppointment"]</th>
+                <th class="text" style="color:#311b63">@Localizer["BookAppointment"]</th>
             }
             @if (User.IsInRole(UserRoles.Role_Admin))
             {
@@ -31,10 +31,9 @@
         @foreach (var doktor in Model)
         {
             <tr>
-                <td align="center" valign="middle"></td>
                 @if (User.IsInRole(UserRoles.Role_Admin))
                 {
-                    <td>@doktor.Id</td>
+                    <td align="center" valign="middle">@doktor.Id</td>
                 }
                 <td align="center" valign="middle">@doktor.DoctorName</td>
                 <td align="center" valign="middle">@doktor.Polyclinic</td>

@@ -20,9 +20,8 @@ namespace WebApplication7.Controllers
                 _doktorRepository = doktorRepository;
                 _webHostEnvironment = webHostEnvironment;
             }
-
-            [Authorize(Roles = UserRoles.Role_Admin)]
-            public IActionResult Index()
+        [Authorize(Roles = "Admin, Patient")]
+        public IActionResult Index()
             {
 
 
@@ -60,7 +59,7 @@ namespace WebApplication7.Controllers
 
 
 
-                    Appointment? randevuDb = _randevuRepository.Get(u => u.Id == id);//Expression<Func<T, bool>> filtre kısmı
+                    Appointment? randevuDb = _randevuRepository.Get(u => u.Id == id);
 
                     if (randevuDb == null)
                     {
@@ -76,7 +75,7 @@ namespace WebApplication7.Controllers
 
 
             [Authorize(Roles = UserRoles.Role_Admin)]
-            [HttpPost]//bunu yazmazsan yukarıda aynı isimle action olduğu için "catch" çalışır, sayfayı göremezsin.
+            [HttpPost]
             public IActionResult EkleGuncelle(Appointment randevu)
             {
 
@@ -95,7 +94,7 @@ namespace WebApplication7.Controllers
                         TempData["basarili"] ="Randevu güncellendi!";
                     }
 
-                    _randevuRepository.Kaydet();//bunu yapmazsan db'ye bilgiler eklenmez.
+                    _randevuRepository.Kaydet();
 
 
 
@@ -117,26 +116,28 @@ namespace WebApplication7.Controllers
         [Authorize(Roles = UserRoles.Role_Patient)]
         public IActionResult RandevuAl()
         {
-            IEnumerable<SelectListItem> DoktorList = _doktorRepository.GetAll()
-                .Select(k => new SelectListItem
-                {
-                    Text = k.DoctorName,
-                    Value = k.Id.ToString(),
-                });
 
-            ViewBag.DoktorList = DoktorList;
+			var loggedInUserName = User.Identity.Name;
 
-            // Giriş yapan kullanıcının adını al
-            var loggedInUserName = User.Identity.Name;
+			
+				var availableDoctors = _doktorRepository.GetAll()
+		.Where(d => !_randevuRepository.GetAll().Any(a => a.DoctorId == d.Id ))
+		.Select(k => new SelectListItem
+		{
+			Text = k.DoctorName + k.WorkingTimes,
+			Value = k.Id.ToString(),
+		});
 
-            // Giriş yapan kullanıcının adını kullanarak PatientId'yi doldur
-            var appointment = new Appointment
-            {
-                PatientName = loggedInUserName,
-            };
 
-            return View(appointment);
-        }
+			ViewBag.DoktorList = availableDoctors;
+
+			var appointment = new Appointment
+			{
+				PatientName = loggedInUserName,
+			};
+
+			return View(appointment);
+		}
 
 
         [Authorize(Roles = UserRoles.Role_Patient)]
@@ -149,7 +150,7 @@ namespace WebApplication7.Controllers
                 _randevuRepository.Ekle(randevu);
                 TempData["basarili1"] = "Yeni randevu alındı!";
                 _randevuRepository.Kaydet();
-                return RedirectToAction("Index", "Doctor");
+                return RedirectToAction("Index", "Appointment");
             }
             else
             {
@@ -158,12 +159,9 @@ namespace WebApplication7.Controllers
         }
 
 
+		[Authorize(Roles = "Admin, Patient")]
 
-
-
-
-        [Authorize(Roles = UserRoles.Role_Admin)]
-            public IActionResult Sil(int? id)
+		public IActionResult Sil(int? id)
             {
 
                 IEnumerable<SelectListItem> DoktorList = _doktorRepository.GetAll().
@@ -186,7 +184,7 @@ namespace WebApplication7.Controllers
                 }
 
 
-                Appointment? randevuDb = _randevuRepository.Get(u => u.Id == id);//Expression<Func<T, bool>> filtre kısmı
+                Appointment? randevuDb = _randevuRepository.Get(u => u.Id == id);
 
                 if (randevuDb == null)
                 {
@@ -202,13 +200,14 @@ namespace WebApplication7.Controllers
 
 
 
-            [Authorize(Roles = UserRoles.Role_Admin)]
-            [HttpPost, ActionName("Sil")]//bunu yazmazsan yukarıda aynı isimle action olduğu için "catch" çalışır, sayfayı göremezsin.
+		[Authorize(Roles = "Admin, Patient")]
+
+		[HttpPost, ActionName("Sil")]
             public IActionResult SilPOST(int? id)
             {
 
 
-                Appointment? randevu = _randevuRepository.Get(u => u.Id == id);//Expression<Func<T, bool>> filtre kısmı
+                Appointment? randevu = _randevuRepository.Get(u => u.Id == id);
 
                 if (randevu == null)
                 {

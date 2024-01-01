@@ -177,6 +177,9 @@
   <data name="Specialty" xml:space="preserve">
     <value>Branş</value>
   </data>
+  <data name="SpecialtyName" xml:space="preserve">
+    <value>Branş Adı</value>
+  </data>
   <data name="Update" xml:space="preserve">
     <value>Güncelle</value>
   </data>

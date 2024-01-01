@@ -5,8 +5,7 @@ using WebApplication7.Utility;
 
 namespace WebApplication7.Controllers
 {
-    [Authorize(Roles = UserRoles.Role_Admin)]//bütün controller dosyasında auth istersen buraya,
-                                                 //spesifik actionlar için istersen aşağıda istediğin metodun başına bunu yazıyorsun 
+    [Authorize(Roles = UserRoles.Role_Admin)]
       
     public class DoctorBransController : Controller
     {
@@ -27,8 +26,6 @@ namespace WebApplication7.Controllers
             }
 
 
-
-
             public IActionResult Ekle()
             {
 
@@ -38,13 +35,13 @@ namespace WebApplication7.Controllers
 
 
 
-            [HttpPost]//bunu yazmazsan yukarıda aynı isimle action olduğu için "catch" çalışır, sayfayı göremezsin.
+            [HttpPost]
             public IActionResult Ekle(DoctorBrans doctorBransEkle)
             {
                 if (ModelState.IsValid)
                 {
                     _doctorBransRepository.Ekle(doctorBransEkle);
-                    _doctorBransRepository.Kaydet();//bunu yapmazsan db'ye bilgiler eklenmez.
+                    _doctorBransRepository.Kaydet();
 
                     TempData["basarili"] = "Doktor Branşı ekleme işlemi başarılı!";
 
@@ -74,7 +71,7 @@ namespace WebApplication7.Controllers
 
 
 
-                DoctorBrans? doktorBransDb = _doctorBransRepository.Get(u => u.Id == id);//Expression<Func<T, bool>> filtre kısmı
+                DoctorBrans? doktorBransDb = _doctorBransRepository.Get(u => u.Id == id);
 
                 if (doktorBransDb == null)
                 {
@@ -92,7 +89,7 @@ namespace WebApplication7.Controllers
 
 
 
-            [HttpPost]//bunu yazmazsan yukarıda aynı isimle action olduğu için "catch" çalışır, sayfayı göremezsin.
+            [HttpPost]
             public IActionResult Guncelle(DoctorBrans doktorBransGuncelle)
             {
 
@@ -129,7 +126,7 @@ namespace WebApplication7.Controllers
 
 
 
-                DoctorBrans? doktorBransDb = _doctorBransRepository.Get(u => u.Id == id);//Expression<Func<T, bool>> filtre kısmı
+                DoctorBrans? doktorBransDb = _doctorBransRepository.Get(u => u.Id == id);
 
                 if (doktorBransDb == null)
                 {
@@ -146,13 +143,12 @@ namespace WebApplication7.Controllers
 
 
 
-            [HttpPost, ActionName("Sil")]//bunu yazmazsan yukarıda aynı isimle action olduğu için "catch" çalışır, sayfayı göremezsin.
+            [HttpPost, ActionName("Sil")]
             public IActionResult SilPOST(int? id)
             {
 
 
-                DoctorBrans? doktorBrans = _doctorBransRepository.Get(u => u.Id == id);//Expression<Func<T, bool>> filtre kısmı
-
+                DoctorBrans? doktorBrans = _doctorBransRepository.Get(u => u.Id == id);
                 if (doktorBrans == null)
                 {
                     return NotFound();
