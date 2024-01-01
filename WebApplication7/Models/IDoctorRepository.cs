@@ -8,5 +8,6 @@ namespace WebApplication7.Models
         void Kaydet();
 
         IEnumerable<Doctor> GetAll();
+
     }
 }

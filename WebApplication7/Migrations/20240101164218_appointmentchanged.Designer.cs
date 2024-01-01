@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication7.Utility;
 
@@ -11,9 +12,10 @@ using WebApplication7.Utility;
 namespace WebApplication7.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240101164218_appointmentchanged")]
+    partial class appointmentchanged
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -246,11 +248,9 @@ namespace WebApplication7.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int?>("BransId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int?>("DoctorId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("PatientName")
@@ -370,15 +370,11 @@ namespace WebApplication7.Migrations
                 {
                     b.HasOne("WebApplication7.Models.DoctorBrans", "Brans")
                         .WithMany()
-                        .HasForeignKey("BransId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BransId");
 
                     b.HasOne("WebApplication7.Models.Doctor", "Doctor")
                         .WithMany()
-                        .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DoctorId");
 
                     b.Navigation("Brans");
 

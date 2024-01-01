@@ -19,6 +19,8 @@ var supportedCultures = new[]
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+
 builder.Services.AddControllersWithViews()
     .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
 

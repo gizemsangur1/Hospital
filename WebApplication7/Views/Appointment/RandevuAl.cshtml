@@ -1,4 +1,4 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization
+﻿﻿@using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer;
 @using WebApplication7.Utility;
 @model Appointment
@@ -38,11 +38,17 @@
                     <span asp-validation-for="PatientName" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
+                    <label asp-for="BransId" class="p-0" style="color:#311b63">@Localizer["Specialty"]</label>
+                    <select asp-for="BransId" asp-items="ViewBag.BransList" class="form-select" id="branchDropdown" onchange="displaySelectedBranch()"></select>
+                    <span asp-validation-for="BransId" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
                     <label asp-for="DoctorId" class="p-0" style="color:#311b63">@Localizer["DoctorName"]</label>
-                    <select asp-for="DoctorId" asp-items="ViewBag.DoktorList" class="form-select"></select> 
+                    <select asp-for="DoctorId" asp-items="ViewBag.DoktorList" class="form-select" id="doctorDropdown"></select>
                     <span asp-validation-for="DoctorId" class="text-danger"></span>
                 </div>
-                <button  type="submit" class="btn btn-lg " style="background-color:#311b63;color:aliceblue;width:250px"> @Localizer["AddAppointment"]</button>
+                <button type="submit" class="btn btn-lg " style="background-color:#311b63;color:aliceblue;width:250px"> @Localizer["AddAppointment"]</button>
             </div>
         </div>
     </div>

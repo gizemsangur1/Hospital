@@ -10,106 +10,107 @@ namespace WebApplication7.Controllers
     public class AppointmentController : Controller
     {
 
-            private readonly IAppointmentRepository _randevuRepository;
-            private readonly IDoctorRepository _doktorRepository;
-            public readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IAppointmentRepository _randevuRepository;
+        private readonly IDoctorRepository _doktorRepository;
+        private readonly IDoctorBransRepository _doktorBransRepository;
 
-            public AppointmentController(IAppointmentRepository randevuRepository, IDoctorRepository doktorRepository, IWebHostEnvironment webHostEnvironment)
-            {
-                _randevuRepository = randevuRepository;
-                _doktorRepository = doktorRepository;
-                _webHostEnvironment = webHostEnvironment;
-            }
+        public readonly IWebHostEnvironment _webHostEnvironment;
+
+        public AppointmentController(IAppointmentRepository randevuRepository,IDoctorBransRepository doktorBransRepository ,IDoctorRepository doktorRepository, IWebHostEnvironment webHostEnvironment)
+        {
+            _randevuRepository = randevuRepository;
+            _doktorRepository = doktorRepository;
+            _doktorBransRepository = doktorBransRepository;
+
+            _webHostEnvironment = webHostEnvironment;
+        }
         [Authorize(Roles = "Admin, Patient")]
         public IActionResult Index()
-            {
+        {
 
 
-                List<Appointment> objRandevuList = _randevuRepository.GetAll(includeProps: "Doctor").ToList();
+            List<Appointment> objRandevuList = _randevuRepository.GetAll(includeProps: "Doctor").ToList();
 
-                return View(objRandevuList);
-            }
-
-
-
-            [Authorize(Roles = UserRoles.Role_Admin)]
-            public IActionResult EkleGuncelle(int? id)
-            {
-
-                IEnumerable<SelectListItem> DoktorList = _doktorRepository.GetAll().
-                    Select(
-                    k => new SelectListItem
-                    {
-                        Text = k.DoctorName+k.WorkingTimes,
-                        Value = k.Id.ToString(),
-                    }
-                   );
-
-                ViewBag.DoktorList = DoktorList;
+            return View(objRandevuList);
+        }
 
 
-                if (id == null || id == 0)//ekle
+
+        [Authorize(Roles = UserRoles.Role_Admin)]
+        public IActionResult EkleGuncelle(int? id)
+        {
+
+            IEnumerable<SelectListItem> DoktorList = _doktorRepository.GetAll().
+                Select(
+                k => new SelectListItem
                 {
-
-                    return View();
-
+                    Text = k.DoctorName + k.WorkingTimes,
+                    Value = k.Id.ToString(),
                 }
-                else
-                {//güncelle
+               );
+
+            ViewBag.DoktorList = DoktorList;
 
 
-
-                    Appointment? randevuDb = _randevuRepository.Get(u => u.Id == id);
-
-                    if (randevuDb == null)
-                    {
-
-
-                        return NotFound();
-
-                    }
-                    return View(randevuDb);
-                }
-            }
-
-
-
-            [Authorize(Roles = UserRoles.Role_Admin)]
-            [HttpPost]
-            public IActionResult EkleGuncelle(Appointment randevu)
+            if (id == null || id == 0)//ekle
             {
 
-                if (ModelState.IsValid)
+                return View();
+
+            }
+            else
+            {//güncelle
+
+
+
+                Appointment? randevuDb = _randevuRepository.Get(u => u.Id == id);
+
+                if (randevuDb == null)
                 {
 
 
-                    if (randevu.Id == 0)
-                    {
-                        _randevuRepository.Ekle(randevu);
-                        TempData["basarili"] = "Yeni randevu kaydedildi!";
-                    }
-                    else
-                    {
-                        _randevuRepository.Guncelle(randevu);
-                        TempData["basarili"] ="Randevu güncellendi!";
-                    }
+                    return NotFound();
 
-                    _randevuRepository.Kaydet();
+                }
+                return View(randevuDb);
+            }
+        }
 
 
 
-                    return RedirectToAction("Index", "Appointment");
+        [Authorize(Roles = UserRoles.Role_Admin)]
+        [HttpPost]
+        public IActionResult EkleGuncelle(Appointment randevu)
+        {
+
+            if (ModelState.IsValid)
+            {
+
+
+                if (randevu.Id == 0)
+                {
+                    _randevuRepository.Ekle(randevu);
+                    TempData["basarili"] = "Yeni randevu kaydedildi!";
                 }
                 else
                 {
-                    return View();
+                    _randevuRepository.Guncelle(randevu);
+                    TempData["basarili"] = "Randevu güncellendi!";
                 }
 
+                _randevuRepository.Kaydet();
 
+
+
+                return RedirectToAction("Index", "Appointment");
+            }
+            else
+            {
+                return View();
             }
 
 
-
+        }
 
 
 
@@ -117,27 +118,35 @@ namespace WebApplication7.Controllers
         public IActionResult RandevuAl()
         {
 
-			var loggedInUserName = User.Identity.Name;
+            var loggedInUserName = User.Identity.Name;
 
-			
-				var availableDoctors = _doktorRepository.GetAll()
-		.Where(d => !_randevuRepository.GetAll().Any(a => a.DoctorId == d.Id ))
-		.Select(k => new SelectListItem
-		{
-			Text = k.DoctorName + k.WorkingTimes,
-			Value = k.Id.ToString(),
-		});
+            var bransName = _doktorBransRepository.GetAll()
+            .Select(b => new SelectListItem
+            {
+                Text = b.Ad,
+                Value = b.Id.ToString(),
+            });
 
 
-			ViewBag.DoktorList = availableDoctors;
 
-			var appointment = new Appointment
-			{
-				PatientName = loggedInUserName,
-			};
+            var availableDoctors = _doktorRepository.GetAll()
+    .Where(d => !_randevuRepository.GetAll().Any(a => a.DoctorId == d.Id))
+    .Select(k => new SelectListItem
+    {
+        Text = k.DoctorName + k.WorkingTimes,
+        Value = k.Id.ToString(),
+    });
+            ViewBag.BransList = bransName;
 
-			return View(appointment);
-		}
+            ViewBag.DoktorList = availableDoctors;
+
+            var appointment = new Appointment
+            {
+                PatientName = loggedInUserName,
+            };
+
+            return View(appointment);
+        }
 
 
         [Authorize(Roles = UserRoles.Role_Patient)]
@@ -159,69 +168,69 @@ namespace WebApplication7.Controllers
         }
 
 
-		[Authorize(Roles = "Admin, Patient")]
+        [Authorize(Roles = "Admin, Patient")]
 
-		public IActionResult Sil(int? id)
+        public IActionResult Sil(int? id)
+        {
+
+            IEnumerable<SelectListItem> DoktorList = _doktorRepository.GetAll().
+                Select(
+                k => new SelectListItem
+                {
+                    Text = k.DoctorName,
+                    Value = k.Id.ToString(),
+                }
+               );
+
+            ViewBag.DoktorList = DoktorList;
+
+
+            if (id == null || id == 0)
             {
 
-                IEnumerable<SelectListItem> DoktorList = _doktorRepository.GetAll().
-                    Select(
-                    k => new SelectListItem
-                    {
-                        Text = k.DoctorName,
-                        Value = k.Id.ToString(),
-                    }
-                   );
+                return NotFound();
 
-                ViewBag.DoktorList = DoktorList;
-
-
-                if (id == null || id == 0)
-                {
-
-                    return NotFound();
-
-                }
-
-
-                Appointment? randevuDb = _randevuRepository.Get(u => u.Id == id);
-
-                if (randevuDb == null)
-                {
-
-
-                    return NotFound();
-
-                }
-
-
-                return View(randevuDb);
             }
 
 
+            Appointment? randevuDb = _randevuRepository.Get(u => u.Id == id);
 
-		[Authorize(Roles = "Admin, Patient")]
-
-		[HttpPost, ActionName("Sil")]
-            public IActionResult SilPOST(int? id)
+            if (randevuDb == null)
             {
 
 
-                Appointment? randevu = _randevuRepository.Get(u => u.Id == id);
+                return NotFound();
 
-                if (randevu == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    _randevuRepository.Sil(randevu);
-                    _randevuRepository.Kaydet();
-                    TempData["basarili"] ="Randevu silindi!";
-                    return RedirectToAction("Index", "Appointment");
-                }
             }
 
-        
+
+            return View(randevuDb);
+        }
+
+
+
+        [Authorize(Roles = "Admin, Patient")]
+
+        [HttpPost, ActionName("Sil")]
+        public IActionResult SilPOST(int? id)
+        {
+
+
+            Appointment? randevu = _randevuRepository.Get(u => u.Id == id);
+
+            if (randevu == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                _randevuRepository.Sil(randevu);
+                _randevuRepository.Kaydet();
+                TempData["basarili"] = "Randevu silindi!";
+                return RedirectToAction("Index", "Appointment");
+            }
+        }
+
+
     }
 }
